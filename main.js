@@ -14,23 +14,25 @@ module.exports.loop = function () {
     }
 
     if (Game.spawns[SPAWN_NAME].energy === Game.spawns[SPAWN_NAME].energyCapacity) {
-        let upgraderCount = Game.spawns[SPAWN_NAME].memory['upgraderCount'];
-        let harvesterCount = Game.spawns[SPAWN_NAME].memory['harvesterCount'];
+        let creepCount = Game.spawns[SPAWN_NAME].memory['creepCount'];
 
         if (Game.spawns[SPAWN_NAME].memory['harvesterCount'] < 6) {
-            Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + harvesterCount, {
+            Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
                 memory: {role: 'harvester'}
             });
+            Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
         }
         else if (Game.spawns[SPAWN_NAME].memory['upgraderCount'] < 3) {
-            Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Upgrader_' + upgraderCount, {
+            Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Upgrader_' + creepCount, {
                 memory: {role: 'upgrader'}
             });
+            Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
         }
         else if (Game.spawns[SPAWN_NAME].memory['builderCount'] < 5) {
-            Game.spawns[SPAWN_NAME].spawnCreep([WORK, WORK, MOVE], 'Builder_' + upgraderCount, {
+            Game.spawns[SPAWN_NAME].spawnCreep([WORK, WORK, MOVE], 'Builder_' + creepCount, {
                 memory: {role: 'builder'}
             });
+            Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
         }
     }
 
