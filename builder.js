@@ -11,14 +11,14 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 function bestConstructionSite (creep) {
     // Walls Highest Priority
     let closestWall = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: { owner: { structureType: STRUCTURE_WALL } }
+        filter: { structureType: STRUCTURE_WALL }
     });
     if (closestWall !== undefined) {
         return closestWall;
     }
 
     let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: { owner: { structureType: STRUCTURE_EXTENSION } }
+        filter: { structureType: STRUCTURE_WALL }
     });
     if (closestExtension !== undefined) {
         return closestExtension;
