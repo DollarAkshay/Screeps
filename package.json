@@ -31,6 +31,6 @@
     "homepage": "https://github.com/DollarAkshay/Screeps#readme",
     "dependencies": {
         "@types/lodash": "^4.14.116",
-        "@types/screeps": "^2.4.0"
+        "@types/screeps": "^2.5.3"
     }
 }

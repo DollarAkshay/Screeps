@@ -1,8 +1,13 @@
+
+const GLOBAL = require('globals');
+let creepHelpers = require('creepHelper');
+
+var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+
 /**
  * Harvest function
- * @param {Creep} creep - IDs of the tags whose clusters to fetch
+ * @param {Creep} creep - Creep Object
  */
-
 function harvest (creep) {
     let sources = creep.room.find(FIND_SOURCES);
     let harvestStatus = creep.harvest(sources[0]);
@@ -19,9 +24,8 @@ function harvest (creep) {
 
 /**
  * Upgrade function
- * @param {Creep} creep - IDs of the tags whose clusters to fetch
+ * @param {Creep} creep - Creep Object
  */
-
 function upgrade (creep) {
     let upgradeStatus = creep.upgradeController(creep.room.controller);
     if (upgradeStatus === ERR_NOT_IN_RANGE) {
@@ -37,10 +41,12 @@ function upgrade (creep) {
 
 /**
  * Run function
- * @param {Creep} creep - IDs of the tags whose clusters to fetch
+ * @param {Creep} creep - Creep Object
  */
 function run (creep) {
-    if (creep.carry.energy == 0) {
+    creepHelpers.incrementCreepTypeCounter(creep);
+
+    if (creep.carry.energy === 0) {
         creep.memory['status'] = 'Harvesting';
     }
     else if (creep.carry.energy === creep.carryCapacity) {

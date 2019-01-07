@@ -1,8 +1,16 @@
+
+const GLOBAL = require('globals');
+let creepHelpers = require('creepHelper');
+
+var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+
 /**
  * Run function
  * @param {Creep} creep - IDs of the tags whose clusters to fetch
  */
 function run (creep) {
+    creepHelpers.incrementCreepTypeCounter(creep);
+
     let target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
     if (target != null) {
         let buildStatus = creep.build(target);

@@ -8,7 +8,8 @@
     "globals": {
         "angular": false,
         "WebSocket": false,
-        "d3": false
+        "d3": false,
+        "Game": false
     },
     "rules": {
         "brace-style": [2, "stroustrup"],
@@ -19,6 +20,7 @@
         }],
         "no-invalid-this": 1,
         "no-var": 0,
+        "no-undef": 0,
         "one-var": ["off", "always"],
         "semi": [1, "always"]
     }
