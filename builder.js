@@ -18,7 +18,7 @@ function bestConstructionSite (creep) {
     }
 
     let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: { structureType: STRUCTURE_WALL }
+        filter: { structureType: STRUCTURE_EXTENSION }
     });
     if (closestExtension !== null) {
         return closestExtension;
