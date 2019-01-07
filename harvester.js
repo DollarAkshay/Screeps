@@ -12,11 +12,11 @@ function run (creep) {
         if (harvestStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(sources[1]);
             if (moveStatus !== OK) {
-                console.log('Error in Moving :', moveStatus);
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
         else if (harvestStatus !== OK) {
-            console.log('Error in harvesting :', harvestStatus);
+            console.log(creep.name, '|', 'Error in harvesting :', harvestStatus);
         }
     }
     else {
@@ -24,7 +24,7 @@ function run (creep) {
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME]);
             if (moveStatus !== OK) {
-                console.log('Error in Moving :', moveStatus);
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
         else if (transferStatus === ERR_FULL) {
@@ -39,15 +39,15 @@ function run (creep) {
             if (transferStatus === ERR_NOT_IN_RANGE) {
                 let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME]);
                 if (moveStatus !== OK) {
-                    console.log('Error in Moving :', moveStatus);
+                    console.log(creep.name, '|', 'Error in Moving :', moveStatus);
                 }
             }
             else if (transferStatus !== OK) {
-                console.log('Error in transfer :', transferStatus);
+                console.log(creep.name, '|', 'Error in transfer :', transferStatus);
             }
         }
         else if (transferStatus !== OK) {
-            console.log('Error in transfer :', transferStatus);
+            console.log(creep.name, '|', 'Error in transfer :', transferStatus);
         }
     }
 }

@@ -22,7 +22,7 @@ function run (creep) {
                 }
             }
             else if (buildStatus !== OK) {
-                console.log('Error in building :', buildStatus);
+                console.log(creep.name, '|', 'Error in building :', buildStatus);
             }
         }
     }
