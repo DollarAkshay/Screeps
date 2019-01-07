@@ -13,14 +13,14 @@ function bestConstructionSite (creep) {
     let closestWall = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: { structureType: STRUCTURE_WALL }
     });
-    if (closestWall !== undefined) {
+    if (closestWall !== null) {
         return closestWall;
     }
 
     let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: { structureType: STRUCTURE_WALL }
     });
-    if (closestExtension !== undefined) {
+    if (closestExtension !== null) {
         return closestExtension;
     }
 
@@ -36,7 +36,7 @@ function run (creep) {
 
     if (creep.carry.energy > 0) {
         let target = bestConstructionSite(creep);
-        if (target !== undefined) {
+        if (target !== null) {
             let buildStatus = creep.build(target);
             if (buildStatus === ERR_NOT_IN_RANGE || buildStatus === ERR_NOT_ENOUGH_RESOURCES) {
                 let moveStatus = creep.moveTo(target);
