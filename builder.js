@@ -5,15 +5,38 @@ let creepHelpers = require('creepHelper');
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
+ * Return the best construction site
+ * @param {Creep} creep - Creep Object
+ */
+function bestConstructionSite (creep) {
+    // Walls Highest Priority
+    let closestWall = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+        filter: { owner: { structureType: STRUCTURE_WALL } }
+    });
+    if (closestWall !== undefined) {
+        return closestWall;
+    }
+
+    let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+        filter: { owner: { structureType: STRUCTURE_EXTENSION } }
+    });
+    if (closestExtension !== undefined) {
+        return closestExtension;
+    }
+
+    return creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+}
+
+/**
  * Run function
- * @param {Creep} creep - IDs of the tags whose clusters to fetch
+ * @param {Creep} creep - Creep Object
  */
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy > 0) {
-        let target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
-        if (target != null) {
+        let target = bestConstructionSite(creep);
+        if (target !== undefined) {
             let buildStatus = creep.build(target);
             if (buildStatus === ERR_NOT_IN_RANGE || buildStatus === ERR_NOT_ENOUGH_RESOURCES) {
                 let moveStatus = creep.moveTo(target);
