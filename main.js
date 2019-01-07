@@ -29,7 +29,7 @@ module.exports.loop = function () {
             Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
         }
         else if (Game.spawns[SPAWN_NAME].memory['builderCount'] < 5) {
-            Game.spawns[SPAWN_NAME].spawnCreep([WORK, WORK, MOVE], 'Builder_' + creepCount, {
+            Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
                 memory: {role: 'builder'}
             });
             Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;

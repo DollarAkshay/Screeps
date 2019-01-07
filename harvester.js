@@ -28,22 +28,16 @@ function run (creep) {
             }
         }
         else if (transferStatus === ERR_FULL) {
-            console.log('Transfering Energy to Builder as Spawn is Full');
-            let nearestBuilder = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
-                filter: function (creep) {
-                    return creep.carry.energy < creep.carryCapacity && creep.memory.role === 'builder';
-                }
-            });
-
-            let transferStatus = creep.transfer(nearestBuilder, RESOURCE_ENERGY);
-            if (transferStatus === ERR_NOT_IN_RANGE) {
-                let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME]);
+            console.log('Transfering Energy to Controller as Spawn is Full');
+            let upgradeStatus = creep.upgradeController(creep.room.controller);
+            if (upgradeStatus === ERR_NOT_IN_RANGE) {
+                let moveStatus = creep.moveTo(creep.room.controller);
                 if (moveStatus !== OK) {
                     console.log(creep.name, '|', 'Error in Moving :', moveStatus);
                 }
             }
-            else if (transferStatus !== OK) {
-                console.log(creep.name, '|', 'Error in transfer :', transferStatus);
+            else if (upgradeStatus !== OK) {
+                console.log(creep.name, '|', 'Error in upgrading :', upgradeStatus);
             }
         }
         else if (transferStatus !== OK) {

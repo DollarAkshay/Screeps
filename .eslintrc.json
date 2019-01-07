@@ -1,15 +1,15 @@
 {
     "env": {
-        "browser": true,
-        "es6": true,
-        "jquery": true
+        "screeps/screeps": true
     },
     "extends": "standard",
+    "plugins": [
+        "screeps"
+    ],
     "globals": {
         "angular": false,
         "WebSocket": false,
-        "d3": false,
-        "Game": false
+        "d3": false
     },
     "rules": {
         "brace-style": [2, "stroustrup"],
