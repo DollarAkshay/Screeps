@@ -15,7 +15,7 @@ function run (creep) {
                 console.log('Error in Moving :', moveStatus);
             }
         }
-        else {
+        else if (harvestStatus !== OK) {
             console.log('Error in harvesting :', harvestStatus);
         }
     }
@@ -42,11 +42,11 @@ function run (creep) {
                     console.log('Error in Moving :', moveStatus);
                 }
             }
-            else {
+            else if (transferStatus !== OK) {
                 console.log('Error in transfer :', transferStatus);
             }
         }
-        else {
+        else if (transferStatus !== OK) {
             console.log('Error in transfer :', transferStatus);
         }
     }

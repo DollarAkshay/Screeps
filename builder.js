@@ -21,7 +21,7 @@ function run (creep) {
                     console.log('Error in Moving :', moveStatus);
                 }
             }
-            else {
+            else if (buildStatus !== OK) {
                 console.log('Error in building :', buildStatus);
             }
         }

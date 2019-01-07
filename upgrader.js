@@ -17,7 +17,7 @@ function harvest (creep) {
             console.log('Error in Moving :', moveStatus);
         }
     }
-    else {
+    else if (harvestStatus !== OK) {
         console.log('Error in harvesting :', harvestStatus);
     }
 }
@@ -34,7 +34,7 @@ function upgrade (creep) {
             console.log('Error in Moving :', moveStatus);
         }
     }
-    else {
+    else if (upgradeStatus !== OK) {
         console.log('Error in upgrading :', upgradeStatus);
     }
 }
