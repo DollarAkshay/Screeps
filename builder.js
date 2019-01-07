@@ -11,17 +11,19 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
-    let target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
-    if (target != null) {
-        let buildStatus = creep.build(target);
-        if (buildStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(target);
-            if (moveStatus !== OK) {
-                console.log('Error in Moving :', moveStatus);
+    if (creep.carry.energy < creep.carryCapacity) {
+        let target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+        if (target != null) {
+            let buildStatus = creep.build(target);
+            if (buildStatus === ERR_NOT_IN_RANGE || buildStatus === ERR_NOT_ENOUGH_RESOURCES) {
+                let moveStatus = creep.moveTo(target);
+                if (moveStatus !== OK) {
+                    console.log('Error in Moving :', moveStatus);
+                }
             }
-        }
-        else {
-            console.log('Error in building :', buildStatus);
+            else {
+                console.log('Error in building :', buildStatus);
+            }
         }
     }
 }

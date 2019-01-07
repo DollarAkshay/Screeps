@@ -21,10 +21,29 @@ function run (creep) {
     }
     else {
         let transferStatus = creep.transfer(Game.spawns[SPAWN_NAME], RESOURCE_ENERGY);
-        if (transferStatus == ERR_NOT_IN_RANGE) {
+        if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME]);
             if (moveStatus !== OK) {
                 console.log('Error in Moving :', moveStatus);
+            }
+        }
+        else if (transferStatus === ERR_FULL) {
+            console.log('Transfering Energy to Builder as Spawn is Full');
+            let nearestBuilder = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+                filter: function (creep) {
+                    return creep.carry.energy < creep.carryCapacity && creep.memory.role === 'builder';
+                }
+            });
+
+            let transferStatus = creep.transfer(nearestBuilder, RESOURCE_ENERGY);
+            if (transferStatus === ERR_NOT_IN_RANGE) {
+                let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME]);
+                if (moveStatus !== OK) {
+                    console.log('Error in Moving :', moveStatus);
+                }
+            }
+            else {
+                console.log('Error in transfer :', transferStatus);
             }
         }
         else {
