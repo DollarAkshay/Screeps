@@ -8,23 +8,18 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * Return the best construction site
  * @param {Creep} creep - Creep Object
  */
-function bestConstructionSite (creep) {
-    // Walls Highest Priority
-    let closestWall = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: { structureType: STRUCTURE_WALL }
+function weakestStructure (creep) {
+    const targets = creep.room.find(FIND_STRUCTURES, {
+        filter: object => object.hits < object.hitsMax
     });
-    if (closestWall !== null) {
-        return closestWall;
-    }
 
-    let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: { structureType: STRUCTURE_WALL }
-    });
-    if (closestExtension !== null) {
-        return closestExtension;
+    if (length(targets) > 0) {
+        targets.sort((a, b) => a.hits - b.hits);
+        return targets[0];
     }
-
-    return creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+    else {
+        return null;
+    }
 }
 
 /**
@@ -35,10 +30,10 @@ function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy > 0) {
-        let target = bestConstructionSite(creep);
+        let target = weakestStructure(creep);
         if (target !== null) {
-            let buildStatus = creep.build(target);
-            if (buildStatus === ERR_NOT_IN_RANGE) {
+            let repairStatus = creep.repair(target);
+            if (repairStatus === ERR_NOT_IN_RANGE) {
                 let moveStatus = creep.moveTo(target);
                 if (moveStatus !== OK) {
                     console.log('Error in Moving :', moveStatus);
