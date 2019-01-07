@@ -1,3 +1,7 @@
+const GLOBAL = require('globals');
+
+var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+
 /**
  * Increment the counter of each creep type in memory
  * @param {Creep} creep - Creep Object
