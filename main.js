@@ -10,32 +10,52 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 function spawnCreeps () {
     // Spawn Creeps
     let creepCount = Game.spawns[SPAWN_NAME].memory['creepCount'];
-    if (Game.spawns[SPAWN_NAME].memory['harvesterCount'] < 6) {
-        let spawnStatus = Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
+    let spawn = Game.spawns[SPAWN_NAME];
+
+    if (spawn.memory['harvesterCount'] < 6) {
+        let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
+            dryRun: true,
             memory: {role: 'harvester'}
         });
         if (spawnStatus !== OK) {
             console.log('Error in spawning :', spawnStatus);
         }
-        Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
+        else {
+            spawn.spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
+                memory: {role: 'harvester'}
+            });
+            spawn.memory['creepCount'] += 1;
+        }
     }
-    else if (Game.spawns[SPAWN_NAME].memory['upgraderCount'] < 3) {
-        let spawnStatus = Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Upgrader_' + creepCount, {
+    else if (spawn.memory['upgraderCount'] < 3) {
+        let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Upgrader_' + creepCount, {
+            dryRun: true,
             memory: {role: 'upgrader'}
         });
         if (spawnStatus !== OK) {
             console.log('Error in spawning :', spawnStatus);
         }
-        Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
+        else {
+            spawn.spawnCreep([WORK, CARRY, MOVE], 'Upgrader_' + creepCount, {
+                memory: {role: 'upgrader'}
+            });
+            spawn.memory['creepCount'] += 1;
+        }
     }
-    else if (Game.spawns[SPAWN_NAME].memory['builderCount'] < 3) {
-        let spawnStatus = Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
+    else if (spawn.memory['builderCount'] < 3) {
+        let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
+            dryRun: true,
             memory: {role: 'builder'}
         });
         if (spawnStatus !== OK) {
             console.log('Error in spawning :', spawnStatus);
         }
-        Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
+        else {
+            spawn.spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
+                memory: {role: 'builder'}
+            });
+            spawn.memory['creepCount'] += 1;
+        }
     }
 }
 
