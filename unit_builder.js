@@ -54,6 +54,30 @@ function bestConstructionSite (creep) {
     return creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 }
 
+function bestResourceSite (creep) {
+    // Tombstone
+    let closestTombstone = creep.pos.findClosestByRange(FIND_TOMBSTONES);
+    if (closestTombstone !== null) {
+        return closestTombstone;
+    }
+
+    // Container or Spawn
+    let closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+    });
+    if (closestContainer !== null) {
+        return closestContainer;
+    }
+    else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
+        return Game.spawns[SPAWN_NAME];
+    }
+    else {
+        return null;
+    }
+}
+
 /**
  * Run function
  * @param {Creep} creep - Creep Object
@@ -61,10 +85,22 @@ function bestConstructionSite (creep) {
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
-    // Harvest Tombstones first
-    let tombstones = creep.room.find(FIND_TOMBSTONES);
-
-    if (creep.carry.energy > 0) {
+    // Fill up if not full
+    if (creep.store.getFreeCapacity() > 0) {
+        let resourceLocation = bestResourceSite(creep);
+        let withdrawStatus = creep.withdraw(resourceLocation, RESOURCE_ENERGY);
+        if (withdrawStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(resourceLocation);
+            if (moveStatus !== OK) {
+                console.log('Error in Moving :', moveStatus);
+            }
+        }
+        else if (withdrawStatus !== OK) {
+            console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
+        }
+    }
+    // Deliver energy to construction site
+    else {
         let target = bestConstructionSite(creep);
         if (target !== null) {
             let buildStatus = creep.build(target);
@@ -77,32 +113,6 @@ function run (creep) {
             else if (buildStatus !== OK) {
                 console.log(creep.name, '|', 'Error in building :', buildStatus);
             }
-        }
-    }
-    else if (tombstones.length > 0) {
-        let withdrawStatus = creep.withdraw(tombstones[0], RESOURCE_ENERGY);
-        if (withdrawStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(tombstones[0]);
-            if (moveStatus !== OK) {
-                console.log('Error in Moving :', moveStatus);
-            }
-        }
-        else if (withdrawStatus !== OK) {
-            console.log(creep.name, '|', 'Error in building :', withdrawStatus);
-        }
-    }
-    else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
-        let gameSpawn = Game.spawns[SPAWN_NAME];
-        let withdrawAmount = Math.min(Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) - 200, creep.store.getCapacity(RESOURCE_ENERGY));
-        let withdrawStatus = creep.withdraw(gameSpawn, RESOURCE_ENERGY, withdrawAmount);
-        if (withdrawStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(gameSpawn);
-            if (moveStatus !== OK) {
-                console.log('Error in Moving :', moveStatus);
-            }
-        }
-        else if (withdrawStatus !== OK) {
-            console.log(creep.name, '|', 'Error in building :', withdrawStatus);
         }
     }
 }
