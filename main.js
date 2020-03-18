@@ -1,8 +1,8 @@
 const GLOBAL = require('globals');
 const gameHelpers = require('gameHelpers');
-const harvester = require('harvester');
-const upgrader = require('upgrader');
-const builder = require('builder');
+const harvester = require('unit_harvester');
+const upgrader = require('unit_upgrader');
+const builder = require('unit_builder');
 const init = require('init');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
