@@ -44,16 +44,20 @@ function run (creep) {
         }
     }
     else {
-        let target = Game.spawns[SPAWN_NAME];
+        let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            }
+        });
         let withdrawStatus = creep.withdraw(target, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(target);
+            let moveStatus = creep.moveTo(target, {visualizePathStyle: GLOBAL.REPAIRER_PATH});
             if (moveStatus !== OK) {
                 console.log('Error in Moving :', moveStatus);
             }
         }
         else if (withdrawStatus !== OK) {
-            console.log(creep.name, '|', 'Error in building :', withdrawStatus);
+            console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
         }
     }
 }
