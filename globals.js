@@ -3,8 +3,12 @@ var GLOBAL = {
 
     'HARVESTER_PATH': {
         stroke: '#00dd33',
-        lineStyle: 'dashed',
-        strokeWidth: .15
+    },
+    'UPGRADER_PATH': {
+        stroke: '#1483f7',
+    },
+    'BUILDER_PATH': {
+        stroke: '#ed0d33',
     }
 };
 

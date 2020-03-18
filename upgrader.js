@@ -29,7 +29,7 @@ function harvest (creep) {
 function upgrade (creep) {
     let upgradeStatus = creep.upgradeController(creep.room.controller);
     if (upgradeStatus === ERR_NOT_IN_RANGE) {
-        let moveStatus = creep.moveTo(creep.room.controller);
+        let moveStatus = creep.moveTo(creep.room.controller, {visualizePathStyle: GLOBAL.UPGRADER_PATH});
         if (moveStatus !== OK) {
             console.log(creep.name, '|', 'Error in Moving :', moveStatus);
         }
