@@ -35,12 +35,6 @@ module.exports.loop = function () {
             });
             Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
         }
-        else if (Game.spawns[SPAWN_NAME].memory['repairerCount'] < 5) {
-            Game.spawns[SPAWN_NAME].spawnCreep([WORK, CARRY, MOVE], 'Repairer_' + creepCount, {
-                memory: {role: 'repairer'}
-            });
-            Game.spawns[SPAWN_NAME].memory['creepCount'] += 1;
-        }
     }
 
     gameHelpers.resetCounters();
@@ -55,9 +49,6 @@ module.exports.loop = function () {
         }
         else if (creep.memory.role === 'builder') {
             builder.run(creep);
-        }
-        else if (creep.memory.role === 'repairer') {
-            repairer.run(creep);
         }
         else {
             console.log('Creep Role undefined');
