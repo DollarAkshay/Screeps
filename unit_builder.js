@@ -18,7 +18,7 @@ function bestConstructionSite (creep) {
     }
 
     // Roads over swamp
-    let roomTerrain = Game.map.getRoomTerrain();
+    let roomTerrain = Game.map.getRoomTerrain(GLOBAL.ROOM_NAME);
     let swampRoads = creep.pos.find(FIND_CONSTRUCTION_SITES, {
         filter: { structureType: STRUCTURE_ROAD }
     });
