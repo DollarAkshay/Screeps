@@ -10,13 +10,7 @@ function run (creep) {
         let sources = creep.room.find(FIND_SOURCES);
         let harvestStatus = creep.harvest(sources[0]);
         if (harvestStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(sources[0], {visualizePathStyle: {
-                fill: 'transparent',
-                stroke: '#fff',
-                lineStyle: 'dashed',
-                strokeWidth: .15,
-                opacity: .1
-            }});
+            let moveStatus = creep.moveTo(sources[0], {visualizePathStyle: GLOBAL.HARVESTER_PATH});
             if (moveStatus !== OK) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
