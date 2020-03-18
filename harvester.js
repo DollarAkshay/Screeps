@@ -8,9 +8,15 @@ function run (creep) {
 
     if (creep.carry.energy < creep.carryCapacity) {
         let sources = creep.room.find(FIND_SOURCES);
-        let harvestStatus = creep.harvest(sources[1]);
+        let harvestStatus = creep.harvest(sources[0]);
         if (harvestStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(sources[1]);
+            let moveStatus = creep.moveTo(sources[0], {visualizePathStyle: {
+                fill: 'transparent',
+                stroke: '#fff',
+                lineStyle: 'dashed',
+                strokeWidth: .15,
+                opacity: .1
+            }});
             if (moveStatus !== OK) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
