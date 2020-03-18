@@ -3,7 +3,6 @@ const gameHelpers = require('gameHelpers');
 const harvester = require('harvester');
 const upgrader = require('upgrader');
 const builder = require('builder');
-const repairer = require('repairer');
 const init = require('init');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
