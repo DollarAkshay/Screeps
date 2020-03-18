@@ -13,7 +13,23 @@ function bestSource (creep) {
     // Harvest Energy sources
     let energySources = creep.room.find(FIND_SOURCES);
     if (energySources.length > 0) {
-        return energySources[0];
+        if (creep.memory['mineSource'] === undefined) {
+            let spots = Game.spawns[SPAWN_NAME].memory['sourceFreeSpotCount'];
+            let miners = Game.spawns[SPAWN_NAME].memory['sourceMinerCount'];
+            let bestRatio = 1000000;
+            let bestMine = -1;
+            for (let i = 0; i < spots.length; i++) {
+                if (spots[i] !== 0) {
+                    let curRatio = miners[i] / spots[i];
+                    if (curRatio > bestRatio) {
+                        bestMine = i;
+                    }
+                }
+            }
+            creep.memory['mineSource'] = bestMine;
+            Game.spawns[SPAWN_NAME].memory['sourceMinerCount'][bestMine] += 1;
+        }
+        return energySources[creep.memory['mineSource']];
     }
 
     console.log('No energy sources found');
