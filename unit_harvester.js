@@ -21,7 +21,7 @@ function bestSource (creep) {
             for (let i = 0; i < spots.length; i++) {
                 if (spots[i] !== 0) {
                     let curRatio = miners[i] / spots[i];
-                    if (curRatio > bestRatio) {
+                    if (curRatio < bestRatio) {
                         bestMine = i;
                     }
                 }
