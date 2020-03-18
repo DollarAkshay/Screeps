@@ -61,6 +61,9 @@ function bestConstructionSite (creep) {
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
+    // Harvest Tombstones first
+    let tombstones = creep.room.find(FIND_TOMBSTONES);
+
     if (creep.carry.energy > 0) {
         let target = bestConstructionSite(creep);
         if (target !== null) {
@@ -74,6 +77,18 @@ function run (creep) {
             else if (buildStatus !== OK) {
                 console.log(creep.name, '|', 'Error in building :', buildStatus);
             }
+        }
+    }
+    else if (tombstones.length > 0) {
+        let withdrawStatus = creep.withdraw(tombstones[0], RESOURCE_ENERGY);
+        if (withdrawStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(tombstones[0]);
+            if (moveStatus !== OK) {
+                console.log('Error in Moving :', moveStatus);
+            }
+        }
+        else if (withdrawStatus !== OK) {
+            console.log(creep.name, '|', 'Error in building :', withdrawStatus);
         }
     }
     else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {

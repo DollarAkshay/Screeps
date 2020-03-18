@@ -4,12 +4,6 @@ let creepHelpers = require('creepHelper');
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 function bestSource (creep) {
-    // Harvest Tombstones first
-    let tombstones = creep.room.find(FIND_TOMBSTONES);
-    if (tombstones.length > 0) {
-        return tombstones[0];
-    }
-
     // Harvest Energy sources
     let energySources = creep.room.find(FIND_SOURCES);
     if (energySources.length > 0) {
