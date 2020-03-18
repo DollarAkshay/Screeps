@@ -8,6 +8,8 @@ const init = require('init');
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 module.exports.loop = function () {
+    gameHelpers.clearMemory();
+
     if (Game.spawns[SPAWN_NAME].memory['initialized'] === undefined) {
         init.firstRun();
         Game.spawns[SPAWN_NAME].memory['initialized'] = true;
