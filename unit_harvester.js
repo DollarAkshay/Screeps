@@ -3,14 +3,31 @@ let creepHelpers = require('creepHelper');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
+function bestSource (creep) {
+    // Harvest Tombstones first
+    let tombstones = creep.room.find(FIND_TOMBSTONES);
+    if (tombstones.length > 0) {
+        return tombstones[0];
+    }
+
+    // Harvest Energy sources
+    let energySources = creep.room.find(FIND_SOURCES);
+    if (energySources.length > 0) {
+        return energySources[0];
+    }
+
+    console.log('No energy sources found');
+    return null;
+}
+
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy < creep.carryCapacity) {
-        let sources = creep.room.find(FIND_SOURCES);
-        let harvestStatus = creep.harvest(sources[0]);
+        let source = bestSource(creep);
+        let harvestStatus = creep.harvest(source);
         if (harvestStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(sources[0], {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+            let moveStatus = creep.moveTo(source, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
             if (moveStatus !== OK) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
