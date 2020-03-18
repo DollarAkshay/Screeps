@@ -64,7 +64,7 @@ function bestResourceSite (creep) {
     // Container or Spawn
     let closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
-            return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            return structure.structureType === STRUCTURE_CONTAINER && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
         }
     });
     if (closestContainer !== null) {
