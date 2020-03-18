@@ -37,7 +37,7 @@ function run (creep) {
         if (target !== null) {
             let repairStatus = creep.repair(target);
             if (repairStatus === ERR_NOT_IN_RANGE) {
-                let moveStatus = creep.moveTo(target);
+                let moveStatus = creep.moveTo(target, {visualizePathStyle: GLOBAL.REPAIRER_PATH});
                 if (moveStatus !== OK) {
                     console.log('Error in Moving :', moveStatus);
                 }
