@@ -76,7 +76,7 @@ function run (creep) {
             }
         }
     }
-    else {
+    else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) >= 250) {
         let target = Game.spawns[SPAWN_NAME];
         let withdrawStatus = creep.withdraw(target, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
