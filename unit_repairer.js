@@ -29,11 +29,11 @@ function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy > 0) {
-        if (creep.memory.repairTarget === undefined) {
-            creep.memory.repairTarget = weakestStructure(creep);
+        if (creep.memory.repairTargetId === undefined) {
+            creep.memory.repairTargetId = weakestStructure(creep).id;
         }
 
-        let target = creep.memory.repairTarget;
+        let target = Game.getObjectById(creep.memory.repairTargetId);
         if (target !== null) {
             let repairStatus = creep.repair(target);
             if (repairStatus === ERR_NOT_IN_RANGE) {
@@ -42,13 +42,13 @@ function run (creep) {
                     console.log('Error in Moving :', moveStatus);
                 }
             }
-            else if (buildStatus !== OK) {
-                console.log(creep.name, '|', 'Error in building :', buildStatus);
+            else if (repairStatus !== OK) {
+                console.log(creep.name, '|', 'Error in repairing :', repairStatus);
             }
         }
     }
     else {
-        delete creep.memory.repairTarget;
+        delete creep.memory.repairTargetId;
         let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
                 return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
