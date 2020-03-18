@@ -13,7 +13,7 @@ function bestSource (creep) {
     // Harvest Energy sources
     let energySources = creep.room.find(FIND_SOURCES);
     if (energySources.length > 0) {
-        if (creep.memory['mineSource'] === undefined) {
+        if (creep.memory['mineSource'] === undefined || creep.memory['mineSource'] === -1) {
             let spots = Game.spawns[SPAWN_NAME].memory['sourceFreeSpotCount'];
             let miners = Game.spawns[SPAWN_NAME].memory['sourceMinerCount'];
             let bestRatio = 1000000;
