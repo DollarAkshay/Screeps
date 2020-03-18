@@ -17,7 +17,23 @@ function bestConstructionSite (creep) {
         return closestWall;
     }
 
-    // Roads over swamp
+    // Extension
+    let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+        filter: { structureType: STRUCTURE_EXTENSION }
+    });
+    if (closestExtension !== null) {
+        return closestExtension;
+    }
+
+    // Container
+    let closestContainer = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+        filter: { structureType: STRUCTURE_CONTAINER }
+    });
+    if (closestContainer !== null) {
+        return closestContainer;
+    }
+
+    // Roads over swamp terrain
     let roomTerrain = Game.map.getRoomTerrain(GLOBAL.ROOM_NAME);
     let swampRoads = creep.room.find(FIND_CONSTRUCTION_SITES, {
         filter: { structureType: STRUCTURE_ROAD }
@@ -33,13 +49,6 @@ function bestConstructionSite (creep) {
     });
     if (closestRoad !== null) {
         return closestRoad;
-    }
-
-    let closestExtension = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-        filter: { structureType: STRUCTURE_EXTENSION }
-    });
-    if (closestExtension !== null) {
-        return closestExtension;
     }
 
     return creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
