@@ -18,6 +18,13 @@ function clearMemory () {
     }
 }
 
+function resetMineSources () {
+    for (var name in Memory.creeps) {
+        delete Memory.creeps[name]['mineSource'];
+    }
+    Game.spawns[SPAWN_NAME].memory['sourceMinerCount'] = [0, 0, 0, 0, 0];
+}
+
 module.exports = {
     resetCounters,
     clearMemory
