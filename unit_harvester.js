@@ -54,15 +54,23 @@ function run (creep) {
         }
     }
     else {
-        let transferStatus = creep.transfer(Game.spawns[SPAWN_NAME], RESOURCE_ENERGY);
-        if (transferStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME], {visualizePathStyle: GLOBAL.HARVESTER_PATH});
-            if (moveStatus !== OK) {
-                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
+        var storageTarget = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_CONTAINER) &&
+                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            }
+        });
+        if (storageTarget.length > 0) {
+            let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
+            if (transferStatus === ERR_NOT_IN_RANGE) {
+                let moveStatus = creep.moveTo(storageTarget, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+                if (moveStatus !== OK) {
+                    console.log(creep.name, '|', 'Error in Moving :', moveStatus);
+                }
             }
         }
-        else if (transferStatus === ERR_FULL) {
-            console.log('Transfering Energy to Controller as Spawn is Full');
+        else {
+            console.log('Transfering energy to Controller as all storages are full');
             let upgradeStatus = creep.upgradeController(creep.room.controller);
             if (upgradeStatus === ERR_NOT_IN_RANGE) {
                 let moveStatus = creep.moveTo(creep.room.controller);
@@ -73,9 +81,6 @@ function run (creep) {
             else if (upgradeStatus !== OK) {
                 console.log(creep.name, '|', 'Error in upgrading :', upgradeStatus);
             }
-        }
-        else if (transferStatus !== OK) {
-            console.log(creep.name, '|', 'Error in transfer :', transferStatus);
         }
     }
 }
