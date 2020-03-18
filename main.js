@@ -17,10 +17,7 @@ function spawnCreeps () {
             dryRun: true,
             memory: {role: 'harvester'}
         });
-        if (spawnStatus !== OK) {
-            console.log('Error in spawning :', spawnStatus);
-        }
-        else {
+        if (spawnStatus === OK) {
             spawn.spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
                 memory: {role: 'harvester'}
             });
@@ -32,10 +29,7 @@ function spawnCreeps () {
             dryRun: true,
             memory: {role: 'upgrader'}
         });
-        if (spawnStatus !== OK) {
-            console.log('Error in spawning :', spawnStatus);
-        }
-        else {
+        if (spawnStatus === OK) {
             spawn.spawnCreep([WORK, CARRY, MOVE], 'Upgrader_' + creepCount, {
                 memory: {role: 'upgrader'}
             });
@@ -47,10 +41,7 @@ function spawnCreeps () {
             dryRun: true,
             memory: {role: 'builder'}
         });
-        if (spawnStatus !== OK) {
-            console.log('Error in spawning :', spawnStatus);
-        }
-        else {
+        if (spawnStatus === OK) {
             spawn.spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
                 memory: {role: 'builder'}
             });

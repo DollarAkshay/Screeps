@@ -22,7 +22,7 @@ function run (creep) {
     else {
         let transferStatus = creep.transfer(Game.spawns[SPAWN_NAME], RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME]);
+            let moveStatus = creep.moveTo(Game.spawns[SPAWN_NAME], {visualizePathStyle: GLOBAL.HARVESTER_PATH});
             if (moveStatus !== OK) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
