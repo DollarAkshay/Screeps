@@ -12,7 +12,7 @@ function weakestStructure (creep) {
         filter: object => object.hits < object.hitsMax
     });
 
-    if (length(targets) > 0) {
+    if (targets.length > 0) {
         targets.sort((a, b) => a.hits - b.hits);
         return targets[0];
     }
