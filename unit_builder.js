@@ -76,11 +76,11 @@ function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     // Fill up if not full
-    if (creep.store.getFreeCapacity() > 0) {
+    if (creep.store.getUsedCapacity() == 0) {
         let resourceLocation = bestResourceSite(creep);
         let withdrawStatus = creep.withdraw(resourceLocation, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(resourceLocation);
+            let moveStatus = creep.moveTo(resourceLocation, {visualizePathStyle: GLOBAL.BUILDER_PATH});
             if (moveStatus !== OK) {
                 console.log('Error in Moving :', moveStatus);
             }
