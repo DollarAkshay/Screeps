@@ -36,7 +36,7 @@ function spawnCreeps () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    else if (spawn.memory['builderCount'] < 3) {
+    else if (spawn.memory['builderCount'] < 2) {
         let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
             dryRun: true,
             memory: {role: 'builder'}
