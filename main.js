@@ -19,7 +19,7 @@ function spawnCreeps () {
             memory: {role: 'harvester'}
         });
         if (spawnStatus === OK) {
-            spawn.spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
+            spawn.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], 'Harvester_' + creepCount, {
                 memory: {role: 'harvester'}
             });
             spawn.memory['creepCount'] += 1;
@@ -49,7 +49,7 @@ function spawnCreeps () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    else if (spawn.memory['builderCount'] < 2) {
+    else if (spawn.memory['builderCount'] < 3) {
         let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Builder_' + creepCount, {
             dryRun: true,
             memory: {role: 'builder'}
