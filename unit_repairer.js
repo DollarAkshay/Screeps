@@ -29,7 +29,11 @@ function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy > 0) {
-        let target = weakestStructure(creep);
+        if (creep.memory.repairTarget === undefined) {
+            creep.memory.repairTarget = weakestStructure(creep);
+        }
+
+        let target = creep.memory.repairTarget;
         if (target !== null) {
             let repairStatus = creep.repair(target);
             if (repairStatus === ERR_NOT_IN_RANGE) {
@@ -44,6 +48,7 @@ function run (creep) {
         }
     }
     else {
+        delete creep.memory.repairTarget;
         let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
                 return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
