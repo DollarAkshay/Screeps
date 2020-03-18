@@ -54,13 +54,14 @@ function run (creep) {
         }
     }
     else {
-        var storageTarget = creep.room.find(FIND_STRUCTURES, {
+        var storageTargets = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_CONTAINER) &&
                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
             }
         });
-        if (storageTarget.length > 0) {
+        if (storageTargets.length > 0) {
+            let storageTarget = storageTargets[0];
             let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
             if (transferStatus === ERR_NOT_IN_RANGE) {
                 let moveStatus = creep.moveTo(storageTarget, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
