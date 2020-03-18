@@ -31,6 +31,32 @@ function bestSource (creep) {
     return null;
 }
 
+function bestStorageTarget (creep) {
+    if (Game.spawns[SPAWN_NAME].store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+        return Game.spawns[SPAWN_NAME];
+    }
+
+    var closestExtension = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_EXTENSION && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+    });
+    if (closestExtension !== null) {
+        return closestExtension;
+    }
+
+    var closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+    });
+    if (closestContainer !== null) {
+        return closestContainer;
+    }
+
+    return null;
+}
+
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
@@ -48,14 +74,8 @@ function run (creep) {
         }
     }
     else {
-        var storageTargets = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_CONTAINER) &&
-                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            }
-        });
-        if (storageTargets.length > 0) {
-            let storageTarget = storageTargets[0];
+        var storageTarget = bestStorageTarget(creep);
+        if (storageTarget !== null) {
             let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
             if (transferStatus === ERR_NOT_IN_RANGE) {
                 let moveStatus = creep.moveTo(storageTarget, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
