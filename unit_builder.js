@@ -76,11 +76,12 @@ function run (creep) {
             }
         }
     }
-    else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) >= 250) {
-        let target = Game.spawns[SPAWN_NAME];
-        let withdrawStatus = creep.withdraw(target, RESOURCE_ENERGY);
+    else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
+        let gameSpawn = Game.spawns[SPAWN_NAME];
+        let withdrawAmount = Math.min(Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) - 200, creep.store.getCapacity(RESOURCE_ENERGY));
+        let withdrawStatus = creep.withdraw(gameSpawn, RESOURCE_ENERGY, withdrawAmount);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(target);
+            let moveStatus = creep.moveTo(gameSpawn);
             if (moveStatus !== OK) {
                 console.log('Error in Moving :', moveStatus);
             }
