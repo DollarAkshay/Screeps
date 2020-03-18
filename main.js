@@ -3,6 +3,7 @@ const gameHelpers = require('gameHelpers');
 const harvester = require('unit_harvester');
 const upgrader = require('unit_upgrader');
 const builder = require('unit_builder');
+const repairer = require('unit_repairer');
 const init = require('init');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
@@ -13,6 +14,18 @@ function spawnCreeps () {
     let spawn = Game.spawns[SPAWN_NAME];
 
     if (spawn.memory['harvesterCount'] < 6) {
+        let spawnStatus = spawn.spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], 'Harvester_' + creepCount, {
+            dryRun: true,
+            memory: {role: 'harvester'}
+        });
+        if (spawnStatus === OK) {
+            spawn.spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
+                memory: {role: 'harvester'}
+            });
+            spawn.memory['creepCount'] += 1;
+        }
+    }
+    else if (spawn.memory['harvesterCount'] < 6) {
         let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Harvester_' + creepCount, {
             dryRun: true,
             memory: {role: 'harvester'}
@@ -48,6 +61,18 @@ function spawnCreeps () {
             spawn.memory['creepCount'] += 1;
         }
     }
+    else if (spawn.memory['repairerCount'] < 2) {
+        let spawnStatus = spawn.spawnCreep([WORK, CARRY, MOVE], 'Repairer_' + creepCount, {
+            dryRun: true,
+            memory: {role: 'repairer'}
+        });
+        if (spawnStatus === OK) {
+            spawn.spawnCreep([WORK, CARRY, MOVE], 'Repairer_' + creepCount, {
+                memory: {role: 'repairer'}
+            });
+            spawn.memory['creepCount'] += 1;
+        }
+    }
 }
 
 module.exports.loop = function () {
@@ -72,6 +97,9 @@ module.exports.loop = function () {
         }
         else if (creep.memory.role === 'builder') {
             builder.run(creep);
+        }
+        else if (creep.memory.role === 'repairer') {
+            repairer.run(creep);
         }
         else {
             console.log('Creep Role undefined');
