@@ -27,5 +27,6 @@ function resetMineSources () {
 
 module.exports = {
     resetCounters,
-    clearMemory
+    clearMemory,
+    resetMineSources
 };
