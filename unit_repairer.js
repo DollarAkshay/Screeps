@@ -14,7 +14,7 @@ function weakestStructure (creep) {
         }
     });
     if (targetStructures.length > 0) {
-        targetStructures.sort((a, b) => a.hits - b.hits);
+        targetStructures.sort((a, b) => a.hits / a.hitsMax - b.hits / b.hitsMax);
         return targetStructures[0];
     }
 
@@ -23,7 +23,7 @@ function weakestStructure (creep) {
     });
 
     if (targets.length > 0) {
-        targets.sort((a, b) => a.hits - b.hits);
+        targets.sort((a, b) => a.hits / a.hitsMax - b.hits / b.hitsMax);
         return targets[0];
     }
     else {
