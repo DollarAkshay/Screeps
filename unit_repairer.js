@@ -8,13 +8,14 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function weakestStructure (creep) {
-    let targetStructure = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+    let targetStructures = creep.pos.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return (structure.structureType === STRUCTURE_CONTAINER || structure.structureType === STRUCTURE_ROAD) && structure.hits < structure.hitsMax;
         }
     });
-    if (targetStructure !== null) {
-        return targetStructure;
+    if (targetStructures.length > 0) {
+        targetStructures.sort((a, b) => a.hits - b.hits);
+        return targetStructures[0];
     }
 
     const targets = creep.room.find(FIND_STRUCTURES, {
