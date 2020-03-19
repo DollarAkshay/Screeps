@@ -85,12 +85,16 @@ function bestStorageTarget (creep) {
  */
 function processState (creep) {
     if (creep.store.getFreeCapacity() === 0) {
+        if (creep.memory['status'] !== 'Transfering') {
+            creep.say('🚛 Transfering');
+        }
         creep.memory['status'] = 'Transfering';
-        creep.say('🚛 Transfering');
     }
     else if (creep.store.getUsedCapacity() === 0) {
+        if (creep.memory['status'] !== 'Harvesting') {
+            creep.say('🌞 Harvesting');
+        }
         creep.memory['status'] = 'Harvesting';
-        creep.say('⛏ Harvesting');
     }
     else if (creep.memory['status'] === undefined) {
         creep.memory['status'] = 'Harvesting';
@@ -145,6 +149,10 @@ function transfer (creep) {
     }
 }
 
+/**
+ * Run function
+ * @param {Creep} creep - Creep Object
+ */
 function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
     processState(creep);
