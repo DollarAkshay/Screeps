@@ -31,12 +31,21 @@ function bestSource (creep) {
     return null;
 }
 
-function bestStorageTarget (creep) {
+function bestStorageTarget (creep, stage) {
+    if (stage === 2) {
+        let closestStorage = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return (structure.structureType === STRUCTURE_SPAWN || structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_CONTAINER) &&
+                structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+            }
+        });
+    }
+
     if (Game.spawns[SPAWN_NAME].store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
         return Game.spawns[SPAWN_NAME];
     }
 
-    var closestExtension = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    let closestExtension = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_EXTENSION && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
@@ -45,7 +54,7 @@ function bestStorageTarget (creep) {
         return closestExtension;
     }
 
-    var closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    let closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
@@ -58,6 +67,7 @@ function bestStorageTarget (creep) {
 }
 
 function run (creep) {
+    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy < creep.carryCapacity) {
@@ -74,7 +84,7 @@ function run (creep) {
         }
     }
     else {
-        var storageTarget = bestStorageTarget(creep);
+        var storageTarget = bestStorageTarget(creep, stage);
         if (storageTarget !== null) {
             let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
             if (transferStatus === ERR_NOT_IN_RANGE) {
