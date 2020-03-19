@@ -39,9 +39,9 @@ function bestStorageTarget (creep, stage) {
                 structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
             }
         });
-    }
-    if (closestStorage !== null) {
-        return closestStorage;
+        if (closestStorage !== null) {
+            return closestStorage;
+        }
     }
 
     if (Game.spawns[SPAWN_NAME].store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
