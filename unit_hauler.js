@@ -34,7 +34,7 @@ function run (creep) {
             console.log(creep.name, '|', 'Error in transfering :', transferStatus);
         }
     }
-    else {
+    else if (closestTarget != null) {
         let withdrawStatus = creep.withdraw(closestContainer, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(closestContainer, {visualizePathStyle: GLOBAL.HAULER_PATH});
