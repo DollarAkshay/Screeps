@@ -72,7 +72,7 @@ function run (creep) {
     let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
-    // Fill up if not full
+    // Fill up only if fully empty
     if (creep.store.getUsedCapacity() === 0) {
         let resourceLocation = bestResourceSite(creep, stage);
         let withdrawStatus = creep.withdraw(resourceLocation, RESOURCE_ENERGY);

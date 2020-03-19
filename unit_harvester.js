@@ -70,7 +70,8 @@ function run (creep) {
     let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
-    if (creep.carry.energy < creep.carryCapacity) {
+    // Harvest only if fully empty
+    if (creep.store.getUsedCapacity() === 0) {
         let source = bestSource(creep);
         let harvestStatus = creep.harvest(source);
         if (harvestStatus === ERR_NOT_IN_RANGE) {
