@@ -45,12 +45,6 @@ function bestConstructionSite (creep, stage = 1) {
 }
 
 function bestResourceSite (creep, stage = 1) {
-    // Tombstone
-    let closestTombstone = creep.pos.findClosestByRange(FIND_TOMBSTONES);
-    if (closestTombstone !== null) {
-        return closestTombstone;
-    }
-
     // Container
     let closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {

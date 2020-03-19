@@ -22,6 +22,12 @@ function run (creep) {
         }
     });
 
+    let closestTombstone = creep.pos.findClosestByRange(FIND_TOMBSTONES, {
+        filter: (structure) => {
+            return structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
+        }
+    });
+
     if (creep.carry.energy > 0 && closestTarget !== null) {
         let transferStatus = creep.transfer(closestTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
@@ -34,12 +40,36 @@ function run (creep) {
             console.log(creep.name, '|', 'Error in transfering :', transferStatus);
         }
     }
-    else if (closestTarget != null) {
+    else if (closestTarget !== null) {
         let withdrawStatus = creep.withdraw(closestContainer, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(closestContainer, {visualizePathStyle: GLOBAL.HAULER_PATH});
             if (moveStatus !== OK) {
                 console.log('Error in Moving :', moveStatus);
+            }
+        }
+        else if (withdrawStatus !== OK) {
+            console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
+        }
+    }
+    else if (closestTarget === null && creep.store.getUsedCapacity() > 0) {
+        let transferStatus = creep.transfer(closestContainer, RESOURCE_ENERGY);
+        if (transferStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(closestContainer, {visualizePathStyle: GLOBAL.HAULER_PATH});
+            if (moveStatus !== OK) {
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
+            }
+        }
+        else if (transferStatus !== OK) {
+            console.log(creep.name, '|', 'Error in transfering :', transferStatus);
+        }
+    }
+    else if (closestTombstone !== null) {
+        let withdrawStatus = creep.withdraw(closestTombstone, RESOURCE_ENERGY);
+        if (withdrawStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(closestTombstone, {visualizePathStyle: GLOBAL.HAULER_PATH});
+            if (moveStatus !== OK) {
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
         else if (withdrawStatus !== OK) {
