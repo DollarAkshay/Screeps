@@ -8,6 +8,7 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function run (creep) {
+    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     let closestTarget = creep.pos.findClosestByRange(FIND_STRUCTURES, {

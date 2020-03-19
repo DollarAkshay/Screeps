@@ -70,7 +70,7 @@ function stage2Spawns () {
         }
     }
     else if (spawn.memory['builderCount'] < 2) {
-        let bodyParts = [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE];
+        let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Builder_' + creepCount, {
             dryRun: true,
             memory: {role: 'builder'}
