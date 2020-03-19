@@ -28,7 +28,7 @@ function run (creep) {
         }
     });
 
-    if (creep.carry.energy > 0 && closestTarget !== null) {
+    if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0 && closestTarget !== null) {
         let transferStatus = creep.transfer(closestTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(closestTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
