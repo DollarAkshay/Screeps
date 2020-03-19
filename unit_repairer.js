@@ -36,7 +36,6 @@ function weakestStructure (creep) {
  * @param {Creep} creep - Creep Object
  */
 function run (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy > 0) {
@@ -56,9 +55,9 @@ function run (creep) {
             else if (repairStatus !== OK) {
                 console.log(creep.name, '|', 'Error in repairing :', repairStatus);
             }
-        }
-        if (target.hits === target.hitsMax) {
-            delete creep.memory.repairTargetId;
+            if (target.hits === target.hitsMax) {
+                delete creep.memory.repairTargetId;
+            }
         }
     }
     else {

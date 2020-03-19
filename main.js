@@ -19,7 +19,7 @@ function calculateStage () {
         filter: {structureType: STRUCTURE_EXTENSION}
     }).length;
 
-    if (extensionCount >= 5 && containerCount >= 2) {
+    if (extensionCount >= 5 && containerCount >= 1) {
         stage = 2;
     }
 
