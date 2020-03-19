@@ -3,6 +3,10 @@ let creepHelpers = require('creepHelper');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
+/**
+ * Find the best source function
+ * @param {Creep} creep - Creep Object
+ */
 function bestSource (creep) {
     // Harvest Energy sources
     let energySources = creep.room.find(FIND_SOURCES);
@@ -31,7 +35,13 @@ function bestSource (creep) {
     return null;
 }
 
-function bestStorageTarget (creep, stage) {
+/**
+ * Find the best storage function
+ * @param {Creep} creep - Creep Object
+ */
+function bestStorageTarget (creep) {
+    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
+
     if (stage === 2) {
         let closestStorage = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
@@ -69,48 +79,84 @@ function bestStorageTarget (creep, stage) {
     return null;
 }
 
-function run (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
-    creepHelpers.incrementCreepTypeCounter(creep);
+/**
+ * Process State function
+ * @param {Creep} creep - Creep Object
+ */
+function processState (creep) {
+    if (creep.store.getFreeCapacity() === 0) {
+        creep.memory['status'] = 'Transfering';
+        creep.say('🚛 Transfering');
+    }
+    else if (creep.store.getUsedCapacity() === 0) {
+        creep.memory['status'] = 'Harvesting';
+        creep.say('⛏ Harvesting');
+    }
+    else if (creep.memory['status'] === undefined) {
+        creep.memory['status'] = 'Harvesting';
+    }
+}
 
-    // Harvest only if fully empty
-    if (creep.store.getFreeCapacity() > 0) {
-        let source = bestSource(creep);
-        let harvestStatus = creep.harvest(source);
-        if (harvestStatus === ERR_NOT_IN_RANGE) {
-            let moveStatus = creep.moveTo(source, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+/**
+ * Harvest function
+ * @param {Creep} creep - Creep Object
+ */
+function harvest (creep) {
+    let source = bestSource(creep);
+    let harvestStatus = creep.harvest(source);
+    if (harvestStatus === ERR_NOT_IN_RANGE) {
+        let moveStatus = creep.moveTo(source, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+        if (moveStatus !== OK) {
+            console.log(creep.name, '|', 'Error in Moving :', moveStatus);
+        }
+    }
+    else if (harvestStatus !== OK) {
+        console.log(creep.name, '|', 'Error in harvesting :', harvestStatus);
+    }
+}
+
+/**
+ * Transfer function
+ * @param {Creep} creep - Creep Object
+ */
+function transfer (creep) {
+    var storageTarget = bestStorageTarget(creep);
+    if (storageTarget !== null) {
+        let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
+        if (transferStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(storageTarget, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
             if (moveStatus !== OK) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
-        else if (harvestStatus !== OK) {
-            console.log(creep.name, '|', 'Error in harvesting :', harvestStatus);
-        }
     }
     else {
-        var storageTarget = bestStorageTarget(creep, stage);
-        if (storageTarget !== null) {
-            let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
-            if (transferStatus === ERR_NOT_IN_RANGE) {
-                let moveStatus = creep.moveTo(storageTarget, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
-                if (moveStatus !== OK) {
-                    console.log(creep.name, '|', 'Error in Moving :', moveStatus);
-                }
+        console.log('Transfering energy to Controller as all storages are full');
+        let upgradeStatus = creep.upgradeController(creep.room.controller);
+        if (upgradeStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(creep.room.controller);
+            if (moveStatus !== OK) {
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
-        else {
-            console.log('Transfering energy to Controller as all storages are full');
-            let upgradeStatus = creep.upgradeController(creep.room.controller);
-            if (upgradeStatus === ERR_NOT_IN_RANGE) {
-                let moveStatus = creep.moveTo(creep.room.controller);
-                if (moveStatus !== OK) {
-                    console.log(creep.name, '|', 'Error in Moving :', moveStatus);
-                }
-            }
-            else if (upgradeStatus !== OK) {
-                console.log(creep.name, '|', 'Error in upgrading :', upgradeStatus);
-            }
+        else if (upgradeStatus !== OK) {
+            console.log(creep.name, '|', 'Error in upgrading :', upgradeStatus);
         }
+    }
+}
+
+function run (creep) {
+    creepHelpers.incrementCreepTypeCounter(creep);
+    processState(creep);
+
+    if (creep.memory['status'] === 'Harvesting') {
+        harvest(creep);
+    }
+    else if (creep.memory['status'] === 'Transfering') {
+        transfer(creep);
+    }
+    else {
+        console.log(creep.name, '|', 'Unknown Status :', creep.memory['status']);
     }
 }
 

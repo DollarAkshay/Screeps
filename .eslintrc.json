@@ -20,7 +20,6 @@
         }],
         "no-invalid-this": 1,
         "no-var": 0,
-        "no-undef": 1,
         "one-var": ["off", "always"],
         "semi": [1, "always"]
     }
