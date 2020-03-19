@@ -61,7 +61,7 @@ function run (creep) {
         delete creep.memory.repairTargetId;
         let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
-                return structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                return structure.structureType === STRUCTURE_CONTAINER && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
             }
         });
         let withdrawStatus = creep.withdraw(target, RESOURCE_ENERGY);
