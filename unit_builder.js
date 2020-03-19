@@ -51,7 +51,7 @@ function bestResourceSite (creep, stage = 1) {
         return closestTombstone;
     }
 
-    // Container or Spawn
+    // Container
     let closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_CONTAINER && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
@@ -60,7 +60,9 @@ function bestResourceSite (creep, stage = 1) {
     if (closestContainer !== null) {
         return closestContainer;
     }
-    else if (stage === 1 && Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
+
+    // Use spawn in the early stages of the game
+    if (stage === 1 && Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
         return Game.spawns[SPAWN_NAME];
     }
     else {
