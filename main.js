@@ -16,7 +16,7 @@ function calculateStage () {
         filter: {structureType: STRUCTURE_CONTAINER}
     }).length;
     let extensionCount = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
-        filter: {structureType: STRUCTURE_CONTAINER}
+        filter: {structureType: STRUCTURE_EXTENSION}
     }).length;
 
     if (extensionCount >= 5 && containerCount >= 1) {
