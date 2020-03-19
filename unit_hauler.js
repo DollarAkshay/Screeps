@@ -41,15 +41,15 @@ function run (creep) {
         }
     }
     else if (closestDroppedEnergy !== null) {
-        let withdrawStatus = creep.withdraw(closestDroppedEnergy, RESOURCE_ENERGY);
-        if (withdrawStatus === ERR_NOT_IN_RANGE) {
+        let pickupStatus = creep.pickup(closestDroppedEnergy);
+        if (pickupStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(closestDroppedEnergy, {visualizePathStyle: GLOBAL.HAULER_PATH});
             if (moveStatus !== OK) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
-        else if (withdrawStatus !== OK) {
-            console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
+        else if (pickupStatus !== OK) {
+            console.log(creep.name, '|', 'Error in picking up :', pickupStatus);
         }
     }
     else if (closestTarget !== null) {
