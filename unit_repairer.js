@@ -56,6 +56,9 @@ function run (creep) {
                 console.log(creep.name, '|', 'Error in repairing :', repairStatus);
             }
         }
+        if (target.hits === target.hitsMax) {
+            delete creep.memory.repairTargetId;
+        }
     }
     else {
         delete creep.memory.repairTargetId;

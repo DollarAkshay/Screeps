@@ -8,7 +8,6 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function run (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     let closestTarget = creep.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -53,7 +52,7 @@ function run (creep) {
             console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
         }
     }
-    else if (closestTarget === null && creep.store.getUsedCapacity() > 0) {
+    else if (closestTarget === null && creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
         let transferStatus = creep.transfer(closestContainer, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(closestContainer, {visualizePathStyle: GLOBAL.HAULER_PATH});
