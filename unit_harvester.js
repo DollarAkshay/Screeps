@@ -74,7 +74,7 @@ function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
 
     // Harvest only if fully empty
-    if (creep.store.getUsedCapacity() === 0) {
+    if (creep.store.getFreeCapacity() > 0) {
         let source = bestSource(creep);
         let harvestStatus = creep.harvest(source);
         if (harvestStatus === ERR_NOT_IN_RANGE) {
