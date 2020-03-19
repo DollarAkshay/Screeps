@@ -8,6 +8,7 @@ function resetCounters () {
     Game.spawns[SPAWN_NAME].memory['harvesterCount'] = 0;
     Game.spawns[SPAWN_NAME].memory['builderCount'] = 0;
     Game.spawns[SPAWN_NAME].memory['repairerCount'] = 0;
+    Game.spawns[SPAWN_NAME].memory['haulerCount'] = 0;
 }
 
 function clearMemory () {

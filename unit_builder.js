@@ -8,7 +8,7 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * Return the best construction site
  * @param {Creep} creep - Creep Object
  */
-function bestConstructionSite (creep) {
+function bestConstructionSite (creep, stage = 1) {
     // Walls Highest Priority
     let closestWall = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
         filter: { structureType: STRUCTURE_WALL }
@@ -44,7 +44,7 @@ function bestConstructionSite (creep) {
     return creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 }
 
-function bestResourceSite (creep) {
+function bestResourceSite (creep, stage = 1) {
     // Tombstone
     let closestTombstone = creep.pos.findClosestByRange(FIND_TOMBSTONES);
     if (closestTombstone !== null) {
@@ -60,7 +60,7 @@ function bestResourceSite (creep) {
     if (closestContainer !== null) {
         return closestContainer;
     }
-    else if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
+    else if (stage === 1 && Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 200) {
         return Game.spawns[SPAWN_NAME];
     }
     else {
@@ -73,11 +73,12 @@ function bestResourceSite (creep) {
  * @param {Creep} creep - Creep Object
  */
 function run (creep) {
+    let stage = Game.spawns[SPAWN_NAME].room.memory['Stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     // Fill up if not full
-    if (creep.store.getUsedCapacity() == 0) {
-        let resourceLocation = bestResourceSite(creep);
+    if (creep.store.getUsedCapacity() === 0) {
+        let resourceLocation = bestResourceSite(creep, stage);
         let withdrawStatus = creep.withdraw(resourceLocation, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(resourceLocation, {visualizePathStyle: GLOBAL.BUILDER_PATH});
@@ -91,7 +92,7 @@ function run (creep) {
     }
     // Deliver energy to construction site
     else {
-        let target = bestConstructionSite(creep);
+        let target = bestConstructionSite(creep, stage);
         if (target !== null) {
             let buildStatus = creep.build(target);
             if (buildStatus === ERR_NOT_IN_RANGE) {
