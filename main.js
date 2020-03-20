@@ -5,6 +5,7 @@ const upgrader = require('unit_upgrader');
 const builder = require('unit_builder');
 const repairer = require('unit_repairer');
 const hauler = require('unit_hauler');
+const tower = require('unit_tower');
 const init = require('init');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
@@ -178,6 +179,7 @@ module.exports.loop = function () {
 
     gameHelpers.resetCounters();
 
+    // Creep Code
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
         if (creep.memory.role === 'harvester') {
@@ -198,6 +200,16 @@ module.exports.loop = function () {
         else {
             console.log('Creep Role undefined');
         }
+    }
+
+    // Tower Code
+    let towers = Game.spawns[SPAWN_NAME].room.fine(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_TOWER;
+        }
+    });
+    for (var t in towers) {
+        tower.run(t);
     }
 }
 ;
