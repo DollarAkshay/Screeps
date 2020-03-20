@@ -167,7 +167,7 @@ function withdraw (creep) {
 
     let withdrawTarget = Game.getObjectById(creep.memory['withdrawTarget']);
     if (withdrawTarget != null) {
-        let withdrawStatus = creep.withdraw(withdrawTarget);
+        let withdrawStatus = creep.withdraw(withdrawTarget, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(withdrawTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
             if (moveStatus !== OK) {
@@ -175,7 +175,7 @@ function withdraw (creep) {
             }
         }
         else if (withdrawStatus !== OK) {
-            console.log(creep.name, '|', 'Error in withdrawing up :', withdrawStatus);
+            console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
             delete creep.memory['withdrawTarget'];
         }
         else {
@@ -199,7 +199,7 @@ function transfer (creep) {
 
     let transferTarget = Game.getObjectById(creep.memory['transferTarget']);
     if (transferTarget != null) {
-        let transferStatus = creep.transfer(transferTarget);
+        let transferStatus = creep.transfer(transferTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(transferTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
             if (moveStatus !== OK) {
