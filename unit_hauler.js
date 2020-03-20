@@ -66,7 +66,7 @@ function bestWithdrawSource (creep) {
     // Mining containers
     let miningContainers = creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
-            return structure.structureType === STRUCTURE_CONTAINER && structure.id in GLOBAL.MINER_CONTAINERS === true &&
+            return structure.structureType === STRUCTURE_CONTAINER && GLOBAL.MINER_CONTAINERS.includes(structure.id) === true &&
             structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
         }
     });
@@ -78,7 +78,7 @@ function bestWithdrawSource (creep) {
     // Non-mining containers
     let nonminingContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
-            return structure.structureType === STRUCTURE_CONTAINER && structure.id in GLOBAL.MINER_CONTAINERS === false &&
+            return structure.structureType === STRUCTURE_CONTAINER && GLOBAL.MINER_CONTAINERS.includes(structure.id) === false &&
             structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
         }
     });
@@ -112,7 +112,7 @@ function bestTransferSource (creep) {
     // Non-Mining Containers
     let nonminingContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
-            return structure.structureType === STRUCTURE_CONTAINER && structure.id in GLOBAL.MINER_CONTAINERS === false &&
+            return structure.structureType === STRUCTURE_CONTAINER && GLOBAL.MINER_CONTAINERS.includes(structure.id) === false &&
             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
     });
