@@ -130,11 +130,14 @@ function bestTransferSource (creep) {
 function pickup (creep) {
     // If no pickup target is defined, choose one
     if (creep.memory['pickupTarget'] === undefined) {
-        creep.memory['pickupTarget'] = bestPickupSource(creep).id;
+        let target = bestPickupSource(creep);
+        if (bestPickupSource !== null) {
+            creep.memory['pickupTarget'] = target.id;
+        }
     }
 
-    let pickupTarget = Game.getObjectById(creep.memory['pickupTarget']);
-    if (pickupTarget != null) {
+    if (creep.memory['pickupTarget'] === undefined) {
+        let pickupTarget = Game.getObjectById(creep.memory['pickupTarget']);
         let pickupStatus = creep.pickup(pickupTarget);
         if (pickupStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(pickupTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
@@ -162,11 +165,14 @@ function pickup (creep) {
 function withdraw (creep) {
     // If no withdraw target is defined, choose one
     if (creep.memory['withdrawTarget'] === undefined) {
-        creep.memory['withdrawTarget'] = bestWithdrawSource(creep).id;
+        let target = bestWithdrawSource(creep).id;
+        if (target !== null) {
+            creep.memory['withdrawTarget'] = target.id;
+        }
     }
 
-    let withdrawTarget = Game.getObjectById(creep.memory['withdrawTarget']);
-    if (withdrawTarget != null) {
+    if (creep.memory['withdrawTarget'] !== undefined) {
+        let withdrawTarget = Game.getObjectById(creep.memory['withdrawTarget']);
         let withdrawStatus = creep.withdraw(withdrawTarget, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(withdrawTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
@@ -194,11 +200,14 @@ function withdraw (creep) {
 function transfer (creep) {
     // If no transfer target is defined, choose one
     if (creep.memory['transferTarget'] === undefined) {
-        creep.memory['transferTarget'] = bestTransferSource(creep).id;
+        let target = bestTransferSource(creep).id;
+        if (target !== null) {
+            creep.memory['transferTarget'] = target.id;
+        }
     }
 
-    let transferTarget = Game.getObjectById(creep.memory['transferTarget']);
-    if (transferTarget != null) {
+    if (creep.memory['transferTarget'] !== undefined) {
+        let transferTarget = Game.getObjectById(creep.memory['transferTarget']);
         let transferStatus = creep.transfer(transferTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(transferTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
