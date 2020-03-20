@@ -86,8 +86,8 @@ function stage2Spawns () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    else if (spawn.memory['upgraderCount'] < 3) {
-        let bodyParts = [WORK, WORK, CARRY, CARRY, MOVE, MOVE];
+    else if (spawn.memory['upgraderCount'] < 5) {
+        let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
             dryRun: true,
             memory: {
