@@ -19,7 +19,9 @@ function weakestStructure (creep) {
     }
 
     const targets = creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < object.hitsMax
+        filter: (object) => {
+            return object.hits < object.hitsMax && object.hits < 100000;
+        }
     });
 
     if (targets.length > 0) {
