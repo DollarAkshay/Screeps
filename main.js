@@ -34,6 +34,11 @@ function calculateStage () {
 function stage2Spawns () {
     let creepCount = Game.spawns[SPAWN_NAME].memory['creepCount'];
     let spawn = Game.spawns[SPAWN_NAME];
+    let towerCount = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_TOWER;
+        }
+    }).length;
 
     if (spawn.memory['haulerCount'] < 1) {
         let bodyParts = [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
@@ -120,7 +125,7 @@ function stage2Spawns () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    else if (spawn.memory['repairerCount'] < 1) {
+    else if (spawn.memory['repairerCount'] < 1 && towerCount == 0) {
         let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Repairer_' + creepCount, {
             dryRun: true,
