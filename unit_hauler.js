@@ -8,19 +8,19 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function processState (creep) {
-    if (creep.store.getFreeCapacity() === 0) {
+    if (creep.store.getUsedCapacity() > 0) {
         if (creep.memory['status'] !== 'Transfer') {
             creep.say('Transfer');
         }
         creep.memory['status'] = 'Transfer';
     }
-    if (creep.store.getFreeCapacity() !== 0 && creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
+    if (creep.store.getUsedCapacity() === 0 && creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
         if (creep.memory['status'] !== 'Pickup') {
             creep.say('Pickup');
         }
         creep.memory['status'] = 'Pickup';
     }
-    else if (creep.store.getFreeCapacity() !== 0) {
+    else if (creep.store.getUsedCapacity() === 0) {
         if (creep.memory['status'] !== 'Withdraw') {
             creep.say('Withdraw');
         }
