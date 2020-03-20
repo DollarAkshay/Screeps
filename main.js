@@ -203,7 +203,7 @@ module.exports.loop = function () {
     }
 
     // Tower Code
-    let towers = Game.spawns[SPAWN_NAME].room.fine(FIND_STRUCTURES, {
+    let towers = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         }
