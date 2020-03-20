@@ -1,6 +1,10 @@
 var GLOBAL = {
     'SPAWN_NAME': 'Spawn1',
     'ROOM_NAME': 'E2S38',
+    'MINER_CONTAINERS': [
+        '5e736dc95805906d86ee1db4',
+        '5e73622cc0e4383280429404'
+    ],
 
     'HARVESTER_PATH': {
         stroke: '#00dd33',

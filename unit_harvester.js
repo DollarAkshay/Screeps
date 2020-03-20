@@ -4,6 +4,28 @@ let creepHelpers = require('creepHelper');
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
+ * Process State function
+ * @param {Creep} creep - Creep Object
+ */
+function processState (creep) {
+    if (creep.store.getFreeCapacity() === 0) {
+        if (creep.memory['status'] !== 'Transfering') {
+            creep.say('🚛 Transfering');
+        }
+        creep.memory['status'] = 'Transfering';
+    }
+    else if (creep.store.getUsedCapacity() === 0) {
+        if (creep.memory['status'] !== 'Harvesting') {
+            creep.say('🌞 Harvesting');
+        }
+        creep.memory['status'] = 'Harvesting';
+    }
+    else if (creep.memory['status'] === undefined) {
+        creep.memory['status'] = 'Harvesting';
+    }
+}
+
+/**
  * Find the best source function
  * @param {Creep} creep - Creep Object
  */
@@ -77,28 +99,6 @@ function bestStorageTarget (creep) {
     }
 
     return null;
-}
-
-/**
- * Process State function
- * @param {Creep} creep - Creep Object
- */
-function processState (creep) {
-    if (creep.store.getFreeCapacity() === 0) {
-        if (creep.memory['status'] !== 'Transfering') {
-            creep.say('🚛 Transfering');
-        }
-        creep.memory['status'] = 'Transfering';
-    }
-    else if (creep.store.getUsedCapacity() === 0) {
-        if (creep.memory['status'] !== 'Harvesting') {
-            creep.say('🌞 Harvesting');
-        }
-        creep.memory['status'] = 'Harvesting';
-    }
-    else if (creep.memory['status'] === undefined) {
-        creep.memory['status'] = 'Harvesting';
-    }
 }
 
 /**
