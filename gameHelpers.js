@@ -21,7 +21,7 @@ function clearMemory () {
     }
 }
 
-function resetMineSource () {
+function resetMineSources () {
     for (var name in Memory.creeps) {
         delete Memory.creeps[name]['mineSource'];
     }
