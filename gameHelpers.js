@@ -9,6 +9,7 @@ function resetCounters () {
     Game.spawns[SPAWN_NAME].memory['builderCount'] = 0;
     Game.spawns[SPAWN_NAME].memory['repairerCount'] = 0;
     Game.spawns[SPAWN_NAME].memory['haulerCount'] = 0;
+    Game.spawns[SPAWN_NAME].memory['sourceMinerCount'] = [0, 0, 0, 0, 0];
 }
 
 function clearMemory () {
@@ -20,11 +21,10 @@ function clearMemory () {
     }
 }
 
-function resetMineSources () {
+function resetMineSource () {
     for (var name in Memory.creeps) {
         delete Memory.creeps[name]['mineSource'];
     }
-    Game.spawns[SPAWN_NAME].memory['sourceMinerCount'] = [0, 0, 0, 0, 0];
 }
 
 module.exports = {
