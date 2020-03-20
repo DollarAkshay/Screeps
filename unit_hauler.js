@@ -71,7 +71,7 @@ function bestWithdrawSource (creep) {
         }
     });
     if (miningContainers.length > 0) {
-        miningContainers.sort((a, b) => a.store.getFreeCapacity() - b.store.getFreeCapacity());
+        miningContainers.sort((a, b) => a.store.getFreeCapacity(RESOURCE_ENERGY) - b.store.getFreeCapacity(RESOURCE_ENERGY));
         return miningContainers[0];
     }
 
@@ -165,7 +165,7 @@ function pickup (creep) {
 function withdraw (creep) {
     // If no withdraw target is defined, choose one
     if (creep.memory['withdrawTarget'] === undefined) {
-        let target = bestWithdrawSource(creep).id;
+        let target = bestWithdrawSource(creep);
         if (target !== null) {
             creep.memory['withdrawTarget'] = target.id;
         }
@@ -200,7 +200,7 @@ function withdraw (creep) {
 function transfer (creep) {
     // If no transfer target is defined, choose one
     if (creep.memory['transferTarget'] === undefined) {
-        let target = bestTransferSource(creep).id;
+        let target = bestTransferSource(creep);
         if (target !== null) {
             creep.memory['transferTarget'] = target.id;
         }
