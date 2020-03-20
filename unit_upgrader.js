@@ -39,6 +39,17 @@ function processState (creep) {
  * @param {Creep} creep - Creep Object
  */
 function bestWithdrawSource (creep) {
+    // Non-mining containers
+    let nonminingContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_CONTAINER && GLOBAL.MINER_CONTAINERS.includes(structure.id) === false &&
+            structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
+        }
+    });
+    if (nonminingContainer != null) {
+        return nonminingContainer;
+    }
+
     // Mining containers
     let miningContainers = creep.room.find(FIND_STRUCTURES, {
         filter: (structure) => {
@@ -49,17 +60,6 @@ function bestWithdrawSource (creep) {
     if (miningContainers.length > 0) {
         miningContainers.sort((a, b) => a.store.getFreeCapacity(RESOURCE_ENERGY) - b.store.getFreeCapacity(RESOURCE_ENERGY));
         return miningContainers[0];
-    }
-
-    // Non-mining containers
-    let nonminingContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-        filter: (structure) => {
-            return structure.structureType === STRUCTURE_CONTAINER && GLOBAL.MINER_CONTAINERS.includes(structure.id) === false &&
-            structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0;
-        }
-    });
-    if (nonminingContainer != null) {
-        return nonminingContainer;
     }
 
     return null;
