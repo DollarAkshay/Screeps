@@ -141,7 +141,7 @@ function pickup (creep) {
         let pickupStatus = creep.pickup(pickupTarget);
         if (pickupStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(pickupTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
-            if (moveStatus !== OK) {
+            if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
@@ -176,7 +176,7 @@ function withdraw (creep) {
         let withdrawStatus = creep.withdraw(withdrawTarget, RESOURCE_ENERGY);
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(withdrawTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
-            if (moveStatus !== OK) {
+            if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
@@ -211,7 +211,7 @@ function transfer (creep) {
         let transferStatus = creep.transfer(transferTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(transferTarget, {visualizePathStyle: GLOBAL.HAULER_PATH});
-            if (moveStatus !== OK) {
+            if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }

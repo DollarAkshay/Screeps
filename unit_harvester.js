@@ -110,7 +110,7 @@ function harvest (creep) {
     let harvestStatus = creep.harvest(source);
     if (harvestStatus === ERR_NOT_IN_RANGE) {
         let moveStatus = creep.moveTo(source, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
-        if (moveStatus !== OK) {
+        if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
             console.log(creep.name, '|', 'Error in Moving :', moveStatus);
         }
     }
@@ -129,7 +129,7 @@ function transfer (creep) {
         let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(storageTarget, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
-            if (moveStatus !== OK) {
+            if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
@@ -139,7 +139,7 @@ function transfer (creep) {
         let upgradeStatus = creep.upgradeController(creep.room.controller);
         if (upgradeStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(creep.room.controller);
-            if (moveStatus !== OK) {
+            if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
