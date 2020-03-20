@@ -28,7 +28,7 @@ function processState (tower) {
         tower.memory['status'] = 'Heal';
     }
     else {
-        if (tower.memory['status'] !== 'Repair') {
+        if (tower.memory['status'] == undefined || tower.memory['status'] !== 'Repair') {
             tower.say('🔨 Repairing');
         }
         tower.memory['status'] = 'Repair';
