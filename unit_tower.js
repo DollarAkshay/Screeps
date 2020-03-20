@@ -1,5 +1,4 @@
 const GLOBAL = require('globals');
-let towerHelpers = require('towerHelper');
 
 var SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
