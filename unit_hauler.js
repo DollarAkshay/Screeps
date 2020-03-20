@@ -14,13 +14,13 @@ function processState (creep) {
         }
         creep.memory['status'] = 'Transfer';
     }
-    if (creep.store.getFreeCapacity() > 0 && creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
+    if (creep.store.getUsedCapacity() === 0 && creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
         if (creep.memory['status'] !== 'Pickup') {
             creep.say('Pickup');
         }
         creep.memory['status'] = 'Pickup';
     }
-    else if (creep.store.getFreeCapacity() > 0) {
+    else if (creep.store.getUsedCapacity() === 0) {
         if (creep.memory['status'] !== 'Withdraw') {
             creep.say('Withdraw');
         }
