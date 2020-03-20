@@ -1,7 +1,7 @@
 
 const GLOBAL = require('globals');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 function resetCounters () {
     Game.spawns[SPAWN_NAME].memory['upgraderCount'] = 0;
@@ -13,7 +13,7 @@ function resetCounters () {
 }
 
 function clearMemory () {
-    for (var name in Memory.creeps) {
+    for (let name in Memory.creeps) {
         if (!Game.creeps[name]) {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:', name);
@@ -22,7 +22,7 @@ function clearMemory () {
 }
 
 function resetMineSources () {
-    for (var name in Memory.creeps) {
+    for (let name in Memory.creeps) {
         delete Memory.creeps[name]['mineSource'];
     }
     return true;

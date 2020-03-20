@@ -1,6 +1,6 @@
 const GLOBAL = require('globals');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
  * Process State function

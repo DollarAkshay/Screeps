@@ -1,7 +1,7 @@
 const GLOBAL = require('globals');
 let creepHelpers = require('creepHelper');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
  * Process State function
@@ -126,7 +126,7 @@ function harvest (creep) {
  * @param {Creep} creep - Creep Object
  */
 function transfer (creep) {
-    var storageTarget = bestStorageTarget(creep);
+    let storageTarget = bestStorageTarget(creep);
     if (storageTarget !== null) {
         let transferStatus = creep.transfer(storageTarget, RESOURCE_ENERGY);
         if (transferStatus === ERR_NOT_IN_RANGE) {

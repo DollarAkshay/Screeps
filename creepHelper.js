@@ -1,6 +1,6 @@
 const GLOBAL = require('globals');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
  * Increment the counter of each creep type in memory

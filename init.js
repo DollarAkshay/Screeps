@@ -1,6 +1,6 @@
 const GLOBAL = require('globals');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 function firstRun () {
     Game.spawns[SPAWN_NAME].memory['creepCount'] = 0;

@@ -1,7 +1,7 @@
 const GLOBAL = require('globals');
 let creepHelpers = require('creepHelper');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
  * Process State function

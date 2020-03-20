@@ -1,4 +1,4 @@
-var GLOBAL = {
+let GLOBAL = {
     'SPAWN_NAME': 'Spawn1',
     'ROOM_NAME': 'E2S38',
     'MINER_CONTAINERS': [

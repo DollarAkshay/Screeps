@@ -8,7 +8,7 @@ const hauler = require('unit_hauler');
 const tower = require('unit_tower');
 const init = require('init');
 
-var SPAWN_NAME = GLOBAL.SPAWN_NAME;
+let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 function calculateStage () {
     let stage = 1;
@@ -180,8 +180,8 @@ module.exports.loop = function () {
     gameHelpers.resetCounters();
 
     // Creep Code
-    for (var name in Game.creeps) {
-        var creep = Game.creeps[name];
+    for (let name in Game.creeps) {
+        let creep = Game.creeps[name];
         if (creep.memory.role === 'harvester') {
             harvester.run(creep);
         }
@@ -208,8 +208,7 @@ module.exports.loop = function () {
             return structure.structureType === STRUCTURE_TOWER;
         }
     });
-    for (var t in towers) {
+    for (let t of towers) {
         tower.run(t);
     }
-}
-;
+};
