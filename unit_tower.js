@@ -3,39 +3,6 @@ const GLOBAL = require('globals');
 let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 /**
- * Process State function
- * @param {StructureTower} tower - Tower Object
- */
-function processState (tower) {
-    let enemyCreeps = tower.room.find(FIND_HOSTILE_CREEPS);
-    let enemyStructures = tower.room.find(FIND_HOSTILE_STRUCTURES);
-    let injuredFriendlyCreeps = tower.room.find(FIND_MY_CREEPS, {
-        filter: (creep) => {
-            return creep.hits < creep.hitsMax;
-        }
-    });
-
-    if (enemyCreeps.length > 0 || enemyStructures.length > 0) {
-        if (tower.memory['status'] !== 'Attack') {
-            tower.say('💣 Attack');
-        }
-        tower.memory['status'] = 'Attack';
-    }
-    else if (injuredFriendlyCreeps.length > 0) {
-        if (tower.memory['status'] !== 'Heal') {
-            tower.say('💟 Healing');
-        }
-        tower.memory['status'] = 'Heal';
-    }
-    else {
-        if (tower.memory['status'] == undefined || tower.memory['status'] !== 'Repair') {
-            tower.say('🔨 Repairing');
-        }
-        tower.memory['status'] = 'Repair';
-    }
-}
-
-/**
  * Return the best repair site
  * @param {StructureTower} tower - Tower Object
  */
@@ -116,6 +83,9 @@ function repair (tower) {
             console.log('Tower | Error in repairing :', repairStatus);
         }
     }
+    else {
+        console.log('Tower | Nothing to repair');
+    }
 }
 
 /**
@@ -123,19 +93,22 @@ function repair (tower) {
  * @param {StructureTower} tower - Tower Object
  */
 function run (tower) {
-    processState(tower);
+    let enemyCreeps = tower.room.find(FIND_HOSTILE_CREEPS);
+    let enemyStructures = tower.room.find(FIND_HOSTILE_STRUCTURES);
+    let injuredFriendlyCreeps = tower.room.find(FIND_MY_CREEPS, {
+        filter: (creep) => {
+            return creep.hits < creep.hitsMax;
+        }
+    });
 
-    if (tower.memory['status'] === 'Attack') {
+    if (enemyCreeps.length > 0 || enemyStructures.length > 0) {
         attack(tower);
     }
-    else if (tower.memory['status'] === 'Heal') {
+    else if (injuredFriendlyCreeps.length > 0) {
         heal(tower);
     }
-    else if (tower.memory['status'] === 'Repair') {
-        repair(tower);
-    }
     else {
-        console.log(tower.name, '|', 'Unknown Status :', tower.memory['status']);
+        repair(tower);
     }
 }
 
