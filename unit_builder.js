@@ -69,7 +69,7 @@ function bestResourceSite (creep, stage = 1) {
  * @param {Creep} creep - Creep Object
  */
 function run (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
+    let stage = Game.spawns[SPAWN_NAME].memory['stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     // Fill up only if fully empty

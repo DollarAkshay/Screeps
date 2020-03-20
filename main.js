@@ -23,7 +23,7 @@ function calculateStage () {
         stage = 2;
     }
 
-    Game.spawns[SPAWN_NAME].memory['Stage'] = stage;
+    Game.spawns[SPAWN_NAME].memory['stage'] = stage;
 }
 
 function stage2Spawns () {
@@ -43,8 +43,8 @@ function stage2Spawns () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    if (spawn.memory['harvesterCount'] < 4) {
-        let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
+    if (spawn.memory['harvesterCount'] < 2) {
+        let bodyParts = [WORK, WORK, WORK, WORK, WORK, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Harvester_' + creepCount, {
             dryRun: true,
             memory: {role: 'harvester'}
@@ -56,7 +56,20 @@ function stage2Spawns () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    else if (spawn.memory['upgraderCount'] < 2) {
+    if (spawn.memory['haulerCount'] < 3) {
+        let bodyParts = [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
+        let spawnStatus = spawn.spawnCreep(bodyParts, 'Hauler_' + creepCount, {
+            dryRun: true,
+            memory: {role: 'hauler'}
+        });
+        if (spawnStatus === OK) {
+            spawn.spawnCreep(bodyParts, 'Hauler_' + creepCount, {
+                memory: {role: 'hauler'}
+            });
+            spawn.memory['creepCount'] += 1;
+        }
+    }
+    else if (spawn.memory['upgraderCount'] < 3) {
         let bodyParts = [WORK, WORK, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
             dryRun: true,
@@ -143,7 +156,7 @@ function stage1Spawns () {
 }
 
 function spawnCreeps () {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
+    let stage = Game.spawns[SPAWN_NAME].memory['stage'];
     if (stage === 2) {
         stage2Spawns();
     }

@@ -8,7 +8,8 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function processState (creep) {
-    if (creep.store.getFreeCapacity() === 0) {
+    let stage = Game.spawns[SPAWN_NAME].memory['stage'];
+    if (creep.store.getFreeCapacity() === 0 && stage <= 1) {
         if (creep.memory['status'] !== 'Transfering') {
             creep.say('🚛 Transfering');
         }
@@ -62,7 +63,7 @@ function bestSource (creep) {
  * @param {Creep} creep - Creep Object
  */
 function bestStorageTarget (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
+    let stage = Game.spawns[SPAWN_NAME].memory['stage'];
 
     if (stage === 2) {
         let closestStorage = creep.pos.findClosestByPath(FIND_STRUCTURES, {

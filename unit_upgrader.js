@@ -44,7 +44,7 @@ function upgrade (creep) {
  * @param {Creep} creep - Creep Object
  */
 function run (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['Stage'];
+    let stage = Game.spawns[SPAWN_NAME].memory['stage'];
     creepHelpers.incrementCreepTypeCounter(creep);
 
     if (creep.carry.energy === 0) {
