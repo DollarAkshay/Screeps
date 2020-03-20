@@ -136,7 +136,7 @@ function pickup (creep) {
         }
     }
 
-    if (creep.memory['pickupTarget'] === undefined) {
+    if (creep.memory['pickupTarget'] !== undefined) {
         let pickupTarget = Game.getObjectById(creep.memory['pickupTarget']);
         let pickupStatus = creep.pickup(pickupTarget);
         if (pickupStatus === ERR_NOT_IN_RANGE) {
