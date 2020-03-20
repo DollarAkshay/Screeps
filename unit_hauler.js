@@ -36,13 +36,13 @@ function processState (creep) {
  * @param {Creep} creep - Creep Object
  */
 function bestPickupSource (creep) {
-    let pickupTargets = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
+    let pickupTarget = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES, {
         filter: (resource) => {
             return resource.resourceType === RESOURCE_ENERGY;
         }
     });
-    if (pickupTargets.length > 0) {
-        return pickupTargets[0];
+    if (pickupTarget !== null) {
+        return pickupTarget;
     }
 
     return null;
