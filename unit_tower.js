@@ -18,7 +18,9 @@ function bestRepairStructure (tower) {
     }
 
     const targets = tower.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < object.hitsMax
+        filter: (object) => {
+            return object.hits < object.hitsMax && object.hits < 100000;
+        }
     });
 
     if (targets.length > 0) {
