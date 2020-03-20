@@ -33,10 +33,6 @@ function processState (tower) {
         }
         tower.memory['status'] = 'Repair';
     }
-
-    if (creep.memory['status'] === undefined) {
-        creep.memory['status'] = 'Withdraw';
-    }
 }
 
 /**

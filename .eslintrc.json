@@ -19,8 +19,7 @@
             "ignoreUrls": true
         }],
         "no-invalid-this": 1,
-        "no-var": 0,
-        "one-var": ["off", "always"],
+        "no-var": 1,
         "semi": [1, "always"]
     }
 }

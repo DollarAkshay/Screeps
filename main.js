@@ -14,10 +14,14 @@ function calculateStage () {
     let stage = 1;
 
     let containerCount = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
-        filter: {structureType: STRUCTURE_CONTAINER}
+        filter: {
+            structureType: STRUCTURE_CONTAINER
+        }
     }).length;
     let extensionCount = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
-        filter: {structureType: STRUCTURE_EXTENSION}
+        filter: {
+            structureType: STRUCTURE_EXTENSION
+        }
     }).length;
 
     if (extensionCount >= 5 && containerCount >= 1) {
@@ -35,11 +39,15 @@ function stage2Spawns () {
         let bodyParts = [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Hauler_' + creepCount, {
             dryRun: true,
-            memory: {role: 'hauler'}
+            memory: {
+                role: 'hauler'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Hauler_' + creepCount, {
-                memory: {role: 'hauler'}
+                memory: {
+                    role: 'hauler'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -48,11 +56,15 @@ function stage2Spawns () {
         let bodyParts = [WORK, WORK, WORK, WORK, WORK, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Harvester_' + creepCount, {
             dryRun: true,
-            memory: {role: 'harvester'}
+            memory: {
+                role: 'harvester'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Harvester_' + creepCount, {
-                memory: {role: 'harvester'}
+                memory: {
+                    role: 'harvester'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -61,11 +73,15 @@ function stage2Spawns () {
         let bodyParts = [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Hauler_' + creepCount, {
             dryRun: true,
-            memory: {role: 'hauler'}
+            memory: {
+                role: 'hauler'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Hauler_' + creepCount, {
-                memory: {role: 'hauler'}
+                memory: {
+                    role: 'hauler'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -74,11 +90,15 @@ function stage2Spawns () {
         let bodyParts = [WORK, WORK, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
             dryRun: true,
-            memory: {role: 'upgrader'}
+            memory: {
+                role: 'upgrader'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
-                memory: {role: 'upgrader'}
+                memory: {
+                    role: 'upgrader'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -87,11 +107,15 @@ function stage2Spawns () {
         let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Builder_' + creepCount, {
             dryRun: true,
-            memory: {role: 'builder'}
+            memory: {
+                role: 'builder'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Builder_' + creepCount, {
-                memory: {role: 'builder'}
+                memory: {
+                    role: 'builder'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -100,11 +124,15 @@ function stage2Spawns () {
         let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Repairer_' + creepCount, {
             dryRun: true,
-            memory: {role: 'repairer'}
+            memory: {
+                role: 'repairer'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Repairer_' + creepCount, {
-                memory: {role: 'repairer'}
+                memory: {
+                    role: 'repairer'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -119,11 +147,15 @@ function stage1Spawns () {
         let bodyParts = [WORK, CARRY, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Harvester_' + creepCount, {
             dryRun: true,
-            memory: {role: 'harvester'}
+            memory: {
+                role: 'harvester'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Harvester_' + creepCount, {
-                memory: {role: 'harvester'}
+                memory: {
+                    role: 'harvester'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -132,11 +164,15 @@ function stage1Spawns () {
         let bodyParts = [WORK, CARRY, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
             dryRun: true,
-            memory: {role: 'upgrader'}
+            memory: {
+                role: 'upgrader'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
-                memory: {role: 'upgrader'}
+                memory: {
+                    role: 'upgrader'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -145,11 +181,15 @@ function stage1Spawns () {
         let bodyParts = [WORK, CARRY, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Builder_' + creepCount, {
             dryRun: true,
-            memory: {role: 'builder'}
+            memory: {
+                role: 'builder'
+            }
         });
         if (spawnStatus === OK) {
             spawn.spawnCreep(bodyParts, 'Builder_' + creepCount, {
-                memory: {role: 'builder'}
+                memory: {
+                    role: 'builder'
+                }
             });
             spawn.memory['creepCount'] += 1;
         }
@@ -168,7 +208,6 @@ function spawnCreeps () {
 
 module.exports.loop = function () {
     gameHelpers.clearMemory();
-
     if (Game.spawns[SPAWN_NAME].memory['initialized'] === undefined) {
         init.firstRun();
         Game.spawns[SPAWN_NAME].memory['initialized'] = true;
