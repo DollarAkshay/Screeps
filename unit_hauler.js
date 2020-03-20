@@ -8,12 +8,6 @@ var SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function processState (creep) {
-    if (creep.store.getUsedCapacity() > 0) {
-        if (creep.memory['status'] !== 'Transfer') {
-            creep.say('Transfer');
-        }
-        creep.memory['status'] = 'Transfer';
-    }
     if (creep.store.getUsedCapacity() === 0 && creep.room.find(FIND_DROPPED_RESOURCES).length > 0) {
         if (creep.memory['status'] !== 'Pickup') {
             creep.say('Pickup');
@@ -25,6 +19,12 @@ function processState (creep) {
             creep.say('Withdraw');
         }
         creep.memory['status'] = 'Withdraw';
+    }
+    else if (creep.store.getUsedCapacity() > 0) {
+        if (creep.memory['status'] !== 'Transfer') {
+            creep.say('Transfer');
+        }
+        creep.memory['status'] = 'Transfer';
     }
     else if (creep.memory['status'] === undefined) {
         creep.memory['status'] = 'Withdraw';
@@ -236,14 +236,14 @@ function run (creep) {
     creepHelpers.incrementCreepTypeCounter(creep);
     processState(creep);
 
-    if (creep.memory['status'] === 'Transfer') {
-        transfer(creep);
-    }
-    else if (creep.memory['status'] === 'Pickup') {
+    if (creep.memory['status'] === 'Pickup') {
         pickup(creep);
     }
     else if (creep.memory['status'] === 'Withdraw') {
         withdraw(creep);
+    }
+    else if (creep.memory['status'] === 'Transfer') {
+        transfer(creep);
     }
     else {
         console.log(creep.name, '|', 'Unknown Status :', creep.memory['status']);
