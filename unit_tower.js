@@ -85,9 +85,6 @@ function repair (tower) {
             console.log('Tower | Error in repairing :', repairStatus);
         }
     }
-    else {
-        console.log('Tower | Nothing to repair');
-    }
 }
 
 /**
