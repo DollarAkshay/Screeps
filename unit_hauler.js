@@ -109,6 +109,16 @@ function bestTransferSource (creep) {
         return Game.spawns[SPAWN_NAME];
     }
 
+    // Towers
+    let tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+        }
+    });
+    if (tower != null) {
+        return tower;
+    }
+
     // Non-Mining Containers
     let nonminingContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
