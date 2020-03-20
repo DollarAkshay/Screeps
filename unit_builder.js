@@ -82,7 +82,7 @@ function run (creep) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
-        else if (withdrawStatus !== OK) {
+        else if (withdrawStatus !== OK && withdrawStatus !== ERR_BUSY) {
             console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
         }
     }

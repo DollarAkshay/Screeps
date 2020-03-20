@@ -155,7 +155,7 @@ function pickup (creep) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
-        else if (pickupStatus !== OK) {
+        else if (pickupStatus !== OK && pickupStatus !== ERR_BUSY) {
             console.log(creep.name, '|', 'Error in picking up :', pickupStatus);
             delete creep.memory['pickupTarget'];
         }
@@ -190,7 +190,7 @@ function withdraw (creep) {
                 console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
-        else if (withdrawStatus !== OK) {
+        else if (withdrawStatus !== OK && withdrawStatus !== ERR_BUSY) {
             console.log(creep.name, '|', 'Error in withdrawing :', withdrawStatus);
             delete creep.memory['withdrawTarget'];
         }
