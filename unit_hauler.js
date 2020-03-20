@@ -131,7 +131,7 @@ function pickup (creep) {
     // If no pickup target is defined, choose one
     if (creep.memory['pickupTarget'] === undefined) {
         let target = bestPickupSource(creep);
-        if (bestPickupSource !== null) {
+        if (target !== null) {
             creep.memory['pickupTarget'] = target.id;
         }
     }
