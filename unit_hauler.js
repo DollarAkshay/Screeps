@@ -239,7 +239,7 @@ function run (creep) {
     if (creep.memory['status'] === 'Transfer') {
         transfer(creep);
     }
-    if (creep.memory['status'] === 'Pickup') {
+    else if (creep.memory['status'] === 'Pickup') {
         pickup(creep);
     }
     else if (creep.memory['status'] === 'Withdraw') {
