@@ -81,7 +81,7 @@ function repair (tower) {
 
     if (targetStructure !== null) {
         let repairStatus = tower.repair(targetStructure);
-        if (repairStatus !== OK) {
+        if (repairStatus !== OK && repairStatus !== ERR_NOT_ENOUGH_ENERGY) {
             console.log('Tower | Error in repairing :', repairStatus);
         }
     }
