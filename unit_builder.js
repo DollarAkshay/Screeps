@@ -79,7 +79,7 @@ function run (creep) {
         if (withdrawStatus === ERR_NOT_IN_RANGE) {
             let moveStatus = creep.moveTo(resourceLocation, {visualizePathStyle: GLOBAL.BUILDER_PATH});
             if (moveStatus !== OK) {
-                console.log('Error in Moving :', moveStatus);
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
             }
         }
         else if (withdrawStatus !== OK) {
@@ -94,7 +94,7 @@ function run (creep) {
             if (buildStatus === ERR_NOT_IN_RANGE) {
                 let moveStatus = creep.moveTo(target, {visualizePathStyle: GLOBAL.BUILDER_PATH});
                 if (moveStatus !== OK) {
-                    console.log('Error in Moving :', moveStatus);
+                    console.log(creep.name, '|', 'Error in Moving :', moveStatus);
                 }
             }
             else if (buildStatus !== OK) {
