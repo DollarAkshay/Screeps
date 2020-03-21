@@ -8,8 +8,11 @@ let SPAWN_NAME = GLOBAL.SPAWN_NAME;
  * @param {Creep} creep - Creep Object
  */
 function processState (creep) {
-    let stage = Game.spawns[SPAWN_NAME].memory['stage'];
-    if (creep.store.getFreeCapacity() === 0 && stage <= 1) {
+    let carryBodypartCount = _.filter(creep.body, bodyPart => {
+        return bodyPart.type === CARRY;
+    }).length;
+
+    if (creep.store.getFreeCapacity() === 0 && carryBodypartCount > 0) {
         if (creep.memory['status'] !== 'Transfering') {
             creep.say('🚛 Transfering');
         }
