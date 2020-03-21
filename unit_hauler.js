@@ -86,11 +86,6 @@ function bestWithdrawSource (creep) {
         return nonminingContainer;
     }
 
-    // Spawn
-    if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
-        return Game.spawns[SPAWN_NAME];
-    }
-
     return null;
 }
 
@@ -99,6 +94,11 @@ function bestWithdrawSource (creep) {
  * @param {Creep} creep - Creep Object
  */
 function bestTransferSource (creep) {
+    // Spawn
+    if (Game.spawns[SPAWN_NAME].store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+        return Game.spawns[SPAWN_NAME];
+    }
+
     // Extensions
     let extenstions = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
@@ -107,11 +107,6 @@ function bestTransferSource (creep) {
     });
     if (extenstions !== null) {
         return extenstions;
-    }
-
-    // Spawn
-    if (Game.spawns[SPAWN_NAME].store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-        return Game.spawns[SPAWN_NAME];
     }
 
     // Towers
