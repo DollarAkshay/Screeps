@@ -25,7 +25,7 @@ function calculateStage () {
         }
     }).length;
 
-    if (extensionCount >= 5 && containerCount >= 1) {
+    if (extensionCount >= 5 && containerCount >= 1 && (spawn.memory['harvesterCount'] > 1 || spawn.room.energyAvailable > 600)) {
         stage = 2;
     }
 
