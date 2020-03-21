@@ -93,7 +93,7 @@ function stage2Spawns () {
             spawn.memory['creepCount'] += 1;
         }
     }
-    else if (spawn.memory['upgraderCount'] < 5) {
+    else if (spawn.memory['upgraderCount'] < 3) {
         let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
         let spawnStatus = spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
             dryRun: true,
@@ -139,6 +139,23 @@ function stage2Spawns () {
             spawn.spawnCreep(bodyParts, 'Repairer_' + creepCount, {
                 memory: {
                     role: 'repairer'
+                }
+            });
+            spawn.memory['creepCount'] += 1;
+        }
+    }
+    else if (spawn.memory['upgraderCount'] < 6) {
+        let bodyParts = [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE];
+        let spawnStatus = spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
+            dryRun: true,
+            memory: {
+                role: 'upgrader'
+            }
+        });
+        if (spawnStatus === OK) {
+            spawn.spawnCreep(bodyParts, 'Upgrader_' + creepCount, {
+                memory: {
+                    role: 'upgrader'
                 }
             });
             spawn.memory['creepCount'] += 1;
