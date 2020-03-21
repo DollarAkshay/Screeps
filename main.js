@@ -12,23 +12,24 @@ let SPAWN_NAME = GLOBAL.SPAWN_NAME;
 
 function calculateStage () {
     let stage = 1;
+    let spawn = Game.spawns[SPAWN_NAME];
 
-    let containerCount = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
+    let containerCount = spawn.room.find(FIND_STRUCTURES, {
         filter: {
             structureType: STRUCTURE_CONTAINER
         }
     }).length;
-    let extensionCount = Game.spawns[SPAWN_NAME].room.find(FIND_STRUCTURES, {
+    let extensionCount = spawn.room.find(FIND_STRUCTURES, {
         filter: {
             structureType: STRUCTURE_EXTENSION
         }
     }).length;
 
-    if (extensionCount >= 5 && containerCount >= 1) {
+    if (extensionCount >= 5 && containerCount >= 1 && (spawn.memory['harvesterCount'] > 1 || spawn.room.energyAvailable > 600)) {
         stage = 2;
     }
 
-    Game.spawns[SPAWN_NAME].memory['stage'] = stage;
+    spawn.memory['stage'] = stage;
 }
 
 function stage2Spawns () {
