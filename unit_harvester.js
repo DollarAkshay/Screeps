@@ -112,21 +112,29 @@ function bestStorageTarget (creep) {
  */
 function harvest (creep) {
     let source = bestSource(creep);
+    let closestContainer = source.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_CONTAINER;
+        }
+    });
 
-    let harvestStatus = creep.harvest(source);
-    if (harvestStatus === ERR_NOT_IN_RANGE) {
-        let closestContainer = source.pos.findClosestByPath(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return structure.structureType === STRUCTURE_CONTAINER;
-            }
-        });
-        let moveStatus = creep.moveTo(closestContainer.pos, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+    if (closestContainer !== null && creep.pos.getRangeTo(closestContainer) > 0) {
+        let moveStatus = creep.moveTo(closestContainer, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
         if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
             console.log(creep.name, '|', 'Error in Moving :', moveStatus);
         }
     }
-    else if (harvestStatus !== OK) {
-        console.log(creep.name, '|', 'Error in harvesting :', harvestStatus);
+    else {
+        let harvestStatus = creep.harvest(source);
+        if (harvestStatus === ERR_NOT_IN_RANGE) {
+            let moveStatus = creep.moveTo(source, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+            if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
+                console.log(creep.name, '|', 'Error in Moving :', moveStatus);
+            }
+        }
+        else if (harvestStatus !== OK) {
+            console.log(creep.name, '|', 'Error in harvesting :', harvestStatus);
+        }
     }
 }
 
