@@ -112,9 +112,15 @@ function bestStorageTarget (creep) {
  */
 function harvest (creep) {
     let source = bestSource(creep);
+
     let harvestStatus = creep.harvest(source);
     if (harvestStatus === ERR_NOT_IN_RANGE) {
-        let moveStatus = creep.moveTo(source, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
+        let closestContainer = source.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return structure.structureType === STRUCTURE_CONTAINER;
+            }
+        });
+        let moveStatus = creep.moveTo(closestContainer.pos, {visualizePathStyle: GLOBAL.HARVESTER_PATH});
         if (moveStatus !== OK && moveStatus !== ERR_TIRED) {
             console.log(creep.name, '|', 'Error in Moving :', moveStatus);
         }
