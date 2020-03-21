@@ -86,6 +86,11 @@ function bestWithdrawSource (creep) {
         return nonminingContainer;
     }
 
+    // Spawn
+    if (Game.spawns[SPAWN_NAME].store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
+        return Game.spawns[SPAWN_NAME];
+    }
+
     return null;
 }
 
