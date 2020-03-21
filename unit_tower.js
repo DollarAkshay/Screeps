@@ -106,7 +106,7 @@ function run (tower) {
     else if (injuredFriendlyCreeps.length > 0) {
         heal(tower);
     }
-    else {
+    else if (tower.store.getUsedCapacity(RESOURCE_ENERGY) > 0.5 * tower.store.getCapacity(RESOURCE_ENERGY)) {
         repair(tower);
     }
 }

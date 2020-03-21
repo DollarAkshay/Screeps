@@ -117,7 +117,7 @@ function bestTransferSource (creep) {
     // Towers
     let tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure) => {
-            return structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > structure.store.getCapacity(RESOURCE_ENERGY) / 2;
+            return structure.structureType === STRUCTURE_TOWER && structure.store.getUsedCapacity(RESOURCE_ENERGY) < 0.8 * structure.store.getCapacity(RESOURCE_ENERGY);
         }
     });
     if (tower != null) {
